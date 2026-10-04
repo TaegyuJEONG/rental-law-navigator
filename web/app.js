@@ -43,25 +43,18 @@ function ruleCard(x) {
     <div class="cite">${esc(r.citation)} · ${esc(r.source_doc_id)} · retrieved ${esc(r.retrieved_at || 'n/a')} · as of ${S.asOf}</div>${sourceBlock(r)}</div>`;
 }
 
-// History view: when each rule that reaches this address started, what is coming, and what never became law.
-function timeline(a) {
-  const far = '2099-12-31';
-  const reach = rules.filter(r => r.level === 'state' ? r.jurisdiction === a.state : r.jurisdiction === a.city);
-  const dated = reach.filter(r => r.legal_stage === 'enacted' && r.effective_date && r.effective_date_kind !== 'amendment_or_periodic')
-    .map(r => ({ d: (r.effective_date + '-01-01').slice(0, 10), shown: r.effective_date, r })).sort((x, y) => x.d < y.d ? -1 : 1);
-  const row = e => `<div class="d"><a data-date="${e.d}">${esc(e.shown)}</a></div><div>${esc(e.r.title)} <span class="kv">· ${esc(e.r.citation)}</span></div>`;
-  const past = dated.filter(e => e.d <= S.asOf), future = dated.filter(e => e.d > S.asOf);
-  const amended = reach.filter(r => r.legal_stage === 'enacted' && r.effective_date && r.effective_date_kind === 'amendment_or_periodic');
-  const undated = reach.filter(r => r.legal_stage === 'enacted' && !r.effective_date).length;
-  const pending = reach.filter(r => statusOf(r, S.asOf) === 'pending'), failed = reach.filter(r => statusOf(r, S.asOf) === 'failed');
-  const list = (rows, empty) => `<div class="rule"><div class="tl">${rows || `<div class="d">—</div><div class="kv">${empty}</div>`}</div></div>`;
-  const other = pending.map(r => `<div class="d">pending</div><div>${esc(r.title)} <span class="kv">· ${esc(r.citation)} · a bill, not law</span></div>`).join('') +
-    failed.map(r => `<div class="d">failed</div><div>${esc(r.title)} <span class="kv">· ${esc(r.citation)} · never became law</span></div>`).join('');
-  return `<h3>Already in force on ${S.asOf} — by start date</h3>${list(past.map(row).join(''), 'No rule with a stated start date.')}
-    <div class="kv" style="margin:-2px 0 8px">${amended.length + undated} more rule(s) are in force but are not listed here: their sources give only an amendment or yearly-figure date, or no start date.</div>
-    <h3>Not yet in force on ${S.asOf}</h3>${list(future.map(row).join(''), 'No enacted rule with a later start date reaches this address.')}
-    ${other ? `<h3>Proposed or failed — not law</h3>${list(other)}` : ''}
-    <div class="kv">Click a date to see the answer on that day.</div>`;
+// History view: every rule shown above for this address, in date order, with the kind of date the sources give.
+function timeline(a, res) {
+  const key = r => r.legal_stage !== 'enacted' ? '9' : !r.effective_date ? '8' : (r.effective_date_kind === 'amendment_or_periodic' ? '7' : '0') + (r.effective_date + '-01-01').slice(0, 10);
+  const when = r => r.legal_stage !== 'enacted' ? ['—', 'a bill, not law'] : !r.effective_date ? ['not stated', 'no start date in the sources; treated as in force']
+    : r.effective_date_kind === 'amendment_or_periodic' ? [r.effective_date, 'date of the latest amendment or yearly figure; the law itself is older'] : [r.effective_date, 'start date'];
+  const rows = [...res].sort((x, y) => key(byId[x.team_rule_id]) < key(byId[y.team_rule_id]) ? -1 : 1).map(x => {
+    const r = byId[x.team_rule_id], [d, kind] = when(r);
+    return `<tr><td class="d">${esc(d)}</td><td><span class="badge b-${x.result}">${t(x.result)}</span></td><td>${esc(text(r, 'title'))}<div class="kv">${esc(r.citation)} · ${kind}</div></td></tr>`;
+  }).join('');
+  const failed = rules.filter(r => (r.level === 'state' ? r.jurisdiction === a.state : r.jurisdiction === a.city) && statusOf(r, S.asOf) === 'failed')
+    .map(r => `<tr><td class="d">—</td><td><span class="badge b-failed">${t('failed')}</span></td><td>${esc(text(r, 'title'))}<div class="kv">${esc(r.citation)} · never became law, not reported above</div></td></tr>`).join('');
+  return `<h3>Timeline — all ${res.length} rules shown above, by date</h3><div class="tw"><table class="tlt"><tr><th>Date</th><th>On ${S.asOf}</th><th>Rule</th></tr>${rows}${failed}</table></div>`;
 }
 
 function renderAddress() {
@@ -83,7 +76,7 @@ function renderAddress() {
       h += `<div class="none"><b>${t('norule')}: ${esc(f.jurisdiction)}.</b> ${esc(f.note)}${failed ? ` Recorded but not reported as law: ${esc(failed)}.` : ''}</div>`;
     }
   }
-  return h + timeline(a) + '</div>';
+  return h + timeline(a, res) + '</div>';
 }
 
 function renderLookup() {
@@ -96,7 +89,6 @@ function renderLookup() {
     <div id="detail">${renderAddress()}</div></div>`;
   $('#q').oninput = e => { S.q = e.target.value; const p = e.target.selectionStart; renderLookup(); const n = $('#q'); n.focus(); n.setSelectionRange(p, p); };
   $('#city').onchange = e => { S.city = e.target.value; renderLookup(); };
-  view.querySelectorAll('a[data-date]').forEach(el => el.onclick = () => setDate(el.dataset.date));
   view.querySelectorAll('.row').forEach(el => el.onclick = () => { S.addr = addresses.find(a => a.address_id === el.dataset.a); renderLookup(); window.scrollTo({ top: 0 }); });
 }
 
