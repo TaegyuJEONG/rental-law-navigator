@@ -54,11 +54,14 @@ function timeline(a) {
   const amended = reach.filter(r => r.legal_stage === 'enacted' && r.effective_date && r.effective_date_kind === 'amendment_or_periodic');
   const undated = reach.filter(r => r.legal_stage === 'enacted' && !r.effective_date).length;
   const pending = reach.filter(r => statusOf(r, S.asOf) === 'pending'), failed = reach.filter(r => statusOf(r, S.asOf) === 'failed');
-  return `<h3>History and upcoming changes</h3><div class="rule"><div class="tl">${past.map(row).join('')}
-    <div class="now">▲ in force by ${S.asOf} &nbsp;·&nbsp; ▼ not yet in force</div>${future.map(row).join('') || '<div class="d">—</div><div class="kv">No enacted rule with a later start date reaches this address.</div>'}
-    ${pending.map(r => `<div class="d">pending</div><div>${esc(r.title)} <span class="kv">· ${esc(r.citation)} · a bill, not law</span></div>`).join('')}
-    ${failed.map(r => `<div class="d">failed</div><div>${esc(r.title)} <span class="kv">· ${esc(r.citation)} · never became law</span></div>`).join('')}</div>
-    <div class="kv" style="margin-top:8px">Click a date to see the answer on that day. ${amended.length} rule(s) show only the date of their latest amendment or yearly figure and ${undated} have no start date in the sources; both are treated as already in force.</div></div>`;
+  const list = (rows, empty) => `<div class="rule"><div class="tl">${rows || `<div class="d">—</div><div class="kv">${empty}</div>`}</div></div>`;
+  const other = pending.map(r => `<div class="d">pending</div><div>${esc(r.title)} <span class="kv">· ${esc(r.citation)} · a bill, not law</span></div>`).join('') +
+    failed.map(r => `<div class="d">failed</div><div>${esc(r.title)} <span class="kv">· ${esc(r.citation)} · never became law</span></div>`).join('');
+  return `<h3>Already in force on ${S.asOf} — by start date</h3>${list(past.map(row).join(''), 'No rule with a stated start date.')}
+    <div class="kv" style="margin:-2px 0 8px">${amended.length + undated} more rule(s) are in force but are not listed here: their sources give only an amendment or yearly-figure date, or no start date.</div>
+    <h3>Not yet in force on ${S.asOf}</h3>${list(future.map(row).join(''), 'No enacted rule with a later start date reaches this address.')}
+    ${other ? `<h3>Proposed or failed — not law</h3>${list(other)}` : ''}
+    <div class="kv">Click a date to see the answer on that day.</div>`;
 }
 
 function renderAddress() {
