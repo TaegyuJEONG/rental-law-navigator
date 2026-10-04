@@ -161,7 +161,7 @@ function chrome() {
   document.querySelectorAll('[data-i]').forEach(el => el.textContent = t(el.dataset.i));
   $('#asof').value = S.asOf;
   $('#today').classList.toggle('on', S.asOf === DEFAULT_AS_OF);
-  $('#lang').textContent = S.lang === 'en' ? 'Español' : 'English';
+  $('#lang').textContent = S.lang === 'en' ? '🇪🇸 Español' : '🇺🇸 English';
   document.documentElement.lang = S.lang;
 }
 document.querySelectorAll('#nav button').forEach(b => b.onclick = () => go(b.dataset.v));
