@@ -89,8 +89,9 @@ function renderAddress() {
 function renderLookup() {
   const cities = [...new Set(addresses.map(a => a.city))].sort();
   const q = S.q.trim().toLowerCase();
+  const words = q.split(/[\s,]+/).filter(Boolean);   // every typed word must appear, in any order ("1031 clinton" finds "1031-1035 CLINTON ST")
   const active = q || S.city;
-  const list = active ? addresses.filter(a => (!S.city || a.city === S.city) && (!q || `${a.street_address} ${a.postal_city} ${a.zip} ${a.address_id} ${a.city}`.toLowerCase().includes(q))) : [];
+  const list = active ? addresses.filter(a => (!S.city || a.city === S.city) && words.every(w => `${a.street_address} ${a.postal_city} ${a.zip} ${a.address_id} ${a.city}`.toLowerCase().includes(w))) : [];
   view.innerHTML = `<div class="grid"><div class="card"><div class="qwrap"><input type="search" id="q" placeholder="${t('search')}" value="${esc(S.q)}" autocomplete="off">${active ? '' : '<div class="eg" id="eg">e.g. 6238 De Longpre Ave</div>'}</div>
     <select id="city" style="margin-top:8px"><option value="">${t('allcities')}</option>${cities.map(c => `<option ${c === S.city ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select>
     <div class="count">${active ? `${list.length} of ${addresses.length} addresses match` : `${addresses.length} sample addresses in ${cities.length} cities. Type a street, ZIP or city to search.`}</div>
