@@ -19,7 +19,9 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:14px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,5vw,72px)}
-.legal{background:var(--warn-bg);color:var(--warn-text);font:500 11px/1.5 var(--mono);letter-spacing:.02em;padding:8px 16px;text-align:center;border-bottom:1px solid var(--border)}
+.legal{background:var(--warn-bg);color:var(--warn-text);font:500 11px/1.5 var(--mono);letter-spacing:.02em;padding:8px 16px;text-align:center;border-bottom:1px solid var(--border);min-height:34px;display:flex;align-items:center;justify-content:center}
+@media(min-width:980px){.legal{white-space:nowrap;height:34px}}
+@media(max-width:979px){.legal{min-height:68px}}
 header{padding:38px 0 0}
 h1{font:400 38px/1 var(--serif);letter-spacing:-.02em;margin:0 0 8px}
 .sub{color:var(--text3);font-size:12px;letter-spacing:.02em}
@@ -111,6 +113,6 @@ header{position:relative}
   <nav id="nav"><button data-v="lookup" class="on" data-i="tab_lookup">Address lookup</button><button data-v="changes" data-i="tab_changes">Change tracking</button><button data-v="rules" data-i="tab_rules">Rules</button><button data-v="method" data-i="tab_method">Method &amp; audit</button></nav>
 </header>
 <main id="view">Loading…</main></div>
-<script type="module" src="app.js?v=10"></script>
+<script type="module" src="app.js?v=11"></script>
 </body>
 </html>

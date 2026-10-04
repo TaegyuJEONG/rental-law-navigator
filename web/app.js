@@ -11,7 +11,7 @@ const T = {
     applies: 'Applies', unknown: 'Unknown', superseded: 'Superseded', not_yet_effective: 'Not yet effective', pending: 'Pending — not law', failed: 'Failed', in_force: 'In force',
     why: 'Why', source: 'Source and quoted text', norule: 'No rule at this level', conflict: 'Conflict — needs human review', built: 'Year built', units: 'Units', use: 'Use', juris: 'Jurisdiction',
     cats: { rent_increase_limits: 'Rent increases', just_cause_eviction: 'Just-cause eviction', security_deposits: 'Security deposit', application_screening_fees: 'Application & screening fees', screening_restrictions: 'Screening restrictions', algorithmic_rent_setting: 'Algorithmic rent-setting' } },
-  es: { legal: 'No es asesoría legal. Este prototipo muestra lo que dice el texto público de la ley para una dirección; no es una certificación de cumplimiento.',
+  es: { legal: 'No es asesoría legal. Este prototipo muestra lo que dice la ley pública para una dirección; no certifica el cumplimiento.',
     tagline: 'Qué reglas aplican en esta dirección en esta fecha — cada respuesta citada a su fuente.', asof: 'A fecha de', tab_lookup: 'Buscar dirección', tab_changes: 'Cambios en la ley', tab_rules: 'Reglas', tab_method: 'Método y auditoría', today: 'Fecha por defecto',
     search: 'Buscar entre 500 direcciones (calle, ciudad, código postal o id)', allcities: 'Todas las ciudades', pick: 'Elija una dirección para ver las reglas que le aplican.',
     applies: 'Aplica', unknown: 'Desconocido', superseded: 'Reemplazada', not_yet_effective: 'Aún no vigente', pending: 'Pendiente — no es ley', failed: 'Fallida', in_force: 'Vigente',
