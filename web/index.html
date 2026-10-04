@@ -67,6 +67,10 @@ th{color:var(--mute);font-weight:600}
 .pass{color:var(--ok);font-weight:700}.fail{color:var(--bad);font-weight:700}
 ol.pipe{padding-left:20px}ol.pipe li{margin-bottom:6px}
 .lang{margin-left:auto}
+.tl{display:grid;grid-template-columns:110px 1fr;gap:4px 12px;font-size:13px}
+.tl .d{font-weight:600;white-space:nowrap}
+.tl a{cursor:pointer;text-decoration:underline}
+.tl .now{grid-column:1/-1;border-top:2px solid var(--accent);color:var(--accent);font-weight:700;padding-top:2px;margin:4px 0}
 </style>
 </head>
 <body>
@@ -75,16 +79,14 @@ ol.pipe{padding-left:20px}ol.pipe li{margin-bottom:6px}
   <div class="bar">
     <div><h1>Rental Housing Law Navigator</h1><div class="sub" data-i="tagline">Which rules apply at this address on this date — every answer cited to its source.</div></div>
     <div class="asof"><span data-i="asof">As of</span>
-      <button id="prev" title="Previous date on which the law changes" aria-label="Previous law change">‹</button>
       <input type="date" id="asof">
-      <button id="next" title="Next date on which the law changes" aria-label="Next law change">›</button>
       <button id="today" data-d="2026-10-01" data-i="today">Default date</button>
       <button id="lang" class="lang">Español</button>
-      <div id="asofnote" class="sub" style="flex-basis:100%"></div></div>
+</div>
   </div>
   <nav id="nav"><button data-v="lookup" class="on" data-i="tab_lookup">Address lookup</button><button data-v="changes" data-i="tab_changes">Change tracking</button><button data-v="rules" data-i="tab_rules">Rules</button><button data-v="method" data-i="tab_method">Method &amp; audit</button></nav>
 </div></header>
 <main><div class="wrap" id="view">Loading…</div></main>
-<script type="module" src="app.js?v=3"></script>
+<script type="module" src="app.js?v=4"></script>
 </body>
 </html>

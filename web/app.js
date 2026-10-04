@@ -43,6 +43,24 @@ function ruleCard(x) {
     <div class="cite">${esc(r.citation)} · ${esc(r.source_doc_id)} · retrieved ${esc(r.retrieved_at || 'n/a')} · as of ${S.asOf}</div>${sourceBlock(r)}</div>`;
 }
 
+// History view: when each rule that reaches this address started, what is coming, and what never became law.
+function timeline(a) {
+  const far = '2099-12-31';
+  const reach = rules.filter(r => r.level === 'state' ? r.jurisdiction === a.state : r.jurisdiction === a.city);
+  const dated = reach.filter(r => r.legal_stage === 'enacted' && r.effective_date && r.effective_date_kind !== 'amendment_or_periodic')
+    .map(r => ({ d: (r.effective_date + '-01-01').slice(0, 10), shown: r.effective_date, r })).sort((x, y) => x.d < y.d ? -1 : 1);
+  const row = e => `<div class="d"><a data-date="${e.d}">${esc(e.shown)}</a></div><div>${esc(e.r.title)} <span class="kv">· ${esc(e.r.citation)}</span></div>`;
+  const past = dated.filter(e => e.d <= S.asOf), future = dated.filter(e => e.d > S.asOf);
+  const amended = reach.filter(r => r.legal_stage === 'enacted' && r.effective_date && r.effective_date_kind === 'amendment_or_periodic');
+  const undated = reach.filter(r => r.legal_stage === 'enacted' && !r.effective_date).length;
+  const pending = reach.filter(r => statusOf(r, S.asOf) === 'pending'), failed = reach.filter(r => statusOf(r, S.asOf) === 'failed');
+  return `<h3>History and upcoming changes</h3><div class="rule"><div class="tl">${past.map(row).join('')}
+    <div class="now">▲ in force by ${S.asOf} &nbsp;·&nbsp; ▼ not yet in force</div>${future.map(row).join('') || '<div class="d">—</div><div class="kv">No enacted rule with a later start date reaches this address.</div>'}
+    ${pending.map(r => `<div class="d">pending</div><div>${esc(r.title)} <span class="kv">· ${esc(r.citation)} · a bill, not law</span></div>`).join('')}
+    ${failed.map(r => `<div class="d">failed</div><div>${esc(r.title)} <span class="kv">· ${esc(r.citation)} · never became law</span></div>`).join('')}</div>
+    <div class="kv" style="margin-top:8px">Click a date to see the answer on that day. ${amended.length} rule(s) show only the date of their latest amendment or yearly figure and ${undated} have no start date in the sources; both are treated as already in force.</div></div>`;
+}
+
 function renderAddress() {
   const a = S.addr;
   if (!a) return `<div class="card">${t('pick')}</div>`;
@@ -62,7 +80,7 @@ function renderAddress() {
       h += `<div class="none"><b>${t('norule')}: ${esc(f.jurisdiction)}.</b> ${esc(f.note)}${failed ? ` Recorded but not reported as law: ${esc(failed)}.` : ''}</div>`;
     }
   }
-  return h + '</div>';
+  return h + timeline(a) + '</div>';
 }
 
 function renderLookup() {
@@ -75,6 +93,7 @@ function renderLookup() {
     <div id="detail">${renderAddress()}</div></div>`;
   $('#q').oninput = e => { S.q = e.target.value; const p = e.target.selectionStart; renderLookup(); const n = $('#q'); n.focus(); n.setSelectionRange(p, p); };
   $('#city').onchange = e => { S.city = e.target.value; renderLookup(); };
+  view.querySelectorAll('a[data-date]').forEach(el => el.onclick = () => setDate(el.dataset.date));
   view.querySelectorAll('.row').forEach(el => el.onclick = () => { S.addr = addresses.find(a => a.address_id === el.dataset.a); renderLookup(); window.scrollTo({ top: 0 }); });
 }
 
@@ -134,28 +153,11 @@ function renderMethod() {
     <li>Extraction uses a language model; outputs are cached by document hash so a rerun reproduces the same records. Every model call is in the audit log.</li></ul></div>`;
 }
 
-// Timeline of dates on which some rule starts: the arrows step between "the day before" and "the day it takes effect".
-const day = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
-const starts = {};
-for (const r of rules) if (r.legal_stage === 'enacted' && r.effective_date && r.effective_date_kind !== 'amendment_or_periodic') {
-  const d = (r.effective_date + '-01-01').slice(0, 10); (starts[d] ||= []).push(r);
-}
-const points = [...new Set(Object.keys(starts).flatMap(d => [day(d, -1), d]).concat(DEFAULT_AS_OF))].sort();
-function asOfNote() {
-  const label = r => `${r.jurisdiction}: ${r.title}`;
-  const on = starts[S.asOf], tomorrow = starts[day(S.asOf, 1)];
-  const nxt = points.find(p => p > S.asOf && starts[p]);
-  return on ? `Takes effect on this day — ${on.map(label).join('; ')}` : tomorrow ? `Day before a change — tomorrow: ${tomorrow.map(label).join('; ')}`
-    : nxt ? `Next law change in the data: ${nxt}. Use ‹ › to step between law-change dates.` : 'No later law change in the data. Use ‹ to step back.';
-}
-
 const views = { lookup: renderLookup, changes: renderChanges, rules: renderRules, method: renderMethod };
 function go(v) { S.view = v; document.querySelectorAll('#nav button').forEach(b => b.classList.toggle('on', b.dataset.v === v)); views[v](); }
 function chrome() {
   document.querySelectorAll('[data-i]').forEach(el => el.textContent = t(el.dataset.i));
   $('#asof').value = S.asOf;
-  $('#asofnote').textContent = asOfNote();
-  $('#prev').disabled = !points.some(p => p < S.asOf); $('#next').disabled = !points.some(p => p > S.asOf);
   $('#today').classList.toggle('on', S.asOf === DEFAULT_AS_OF);
   $('#lang').textContent = S.lang === 'en' ? 'Español' : 'English';
   document.documentElement.lang = S.lang;
@@ -163,8 +165,7 @@ function chrome() {
 document.querySelectorAll('#nav button').forEach(b => b.onclick = () => go(b.dataset.v));
 const setDate = d => { if (d) { S.asOf = d; chrome(); go(S.view); } };
 $('#today').onclick = () => setDate(DEFAULT_AS_OF);
-$('#prev').onclick = () => setDate([...points].reverse().find(p => p < S.asOf));
-$('#next').onclick = () => setDate(points.find(p => p > S.asOf));
+
 $('#asof').onchange = e => { if (e.target.value) { S.asOf = e.target.value; chrome(); go(S.view); } };
 $('#lang').onclick = () => { S.lang = S.lang === 'en' ? 'es' : 'en'; chrome(); go(S.view); };
 S.addr = addresses.find(a => a.address_id === 'A0001');
