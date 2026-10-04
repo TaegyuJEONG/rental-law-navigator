@@ -3,10 +3,9 @@ import csv, hashlib, json, os, re, time, threading, urllib.request, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL = os.environ.get('NAVIGATOR_MODEL', 'gpt-5.5')
-SCOPE = ['CA', 'NJ', 'MA', 'Los Angeles, CA', 'San Francisco, CA', 'San Diego, CA', 'Berkeley, CA', 'Santa Ana, CA',
-         'Jersey City, NJ', 'Hoboken, NJ', 'Newark, NJ', 'Boston, MA', 'Cambridge, MA']
-CATEGORIES = ['rent_increase_limits', 'just_cause_eviction', 'security_deposits', 'application_screening_fees',
-              'screening_restrictions', 'algorithmic_rent_setting']
+_cfg = json.load(open(os.path.join(ROOT, 'config', 'scope.json')))
+SCOPE = _cfg['jurisdictions']      # which jurisdictions are in scope is configuration, not code
+CATEGORIES = _cfg['categories']
 _lock = threading.Lock()
 
 

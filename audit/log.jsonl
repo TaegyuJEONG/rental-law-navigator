@@ -466,3 +466,5 @@
 {"ts": "2026-10-04T00:09:40Z", "event": "llm_call", "tag": "coverage:Cambridge, MA", "model": "gpt-5.5", "prompt_sha256": "460b18008688eab9fbb5fa074327034c679c727673aaec72356c553f5ed09ad4", "usage": {"prompt_tokens": 798, "completion_tokens": 156, "total_tokens": 954, "prompt_tokens_details": {"cached_tokens": 0, "audio_tokens": 0}, "completion_tokens_details": {"reasoning_tokens": 75, "audio_tokens": 0, "accepted_prediction_tokens": 0, "rejected_prediction_tokens": 0}}}
 {"ts": "2026-10-04T00:09:40Z", "event": "merge", "raw": 130, "rules": 56, "dropped": 0}
 {"ts": "2026-10-04T00:09:40Z", "event": "backfill", "candidates": 13, "jobs": 116, "backfilled": ["CA-SCREEN-01", "CA-SCREEN-03", "CA-SCREEN-04", "MA-FEE-02"]}
+{"ts": "2026-10-04T11:31:14Z", "event": "merge", "raw": 130, "rules": 56, "dropped": 0}
+{"ts": "2026-10-04T11:31:14Z", "event": "backfill", "candidates": 13, "jobs": 116, "backfilled": ["CA-SCREEN-01", "CA-SCREEN-03", "CA-SCREEN-04", "MA-FEE-02"]}

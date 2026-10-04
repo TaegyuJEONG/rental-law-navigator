@@ -12,6 +12,6 @@
 
 **Responsible design.** Every answer shows the as-of date, source document, quote, retrieval date and reasoning. Pending and failed measures are kept apart from law. Conflicts are flagged, not resolved. Every model call is in an audit log, and outputs are cached by content hash so a rerun reproduces them. The interface says "not legal advice" on every screen.
 
-**Scaling.** A new jurisdiction needs its documents and nothing else: `./add_document.sh text.txt "City, ST"` runs the same extraction, merge and engine. Monitoring is the same pipeline on a schedule: re-fetch sources, compare hashes, re-extract changed documents, diff the affected-address sets, and send the diff to a human.
+**Scaling.** No law is written in code or prompts, so a new jurisdiction needs a line in `config/scope.json`, its law texts and addresses in it; `./add_document.sh text.txt "City, ST"` then runs the same extraction, merge and engine. We tested this with a new ordinance in an existing city, not with a new jurisdiction. Monitoring is the same pipeline on a schedule: re-fetch sources, compare hashes, re-extract changed documents, diff the affected-address sets, and send the diff to a human.
 
 **Limits.** No official score exists for this edition, so our 13 checks are self-validation. Owner type, many unit counts and many construction years are not public, which produces 1,130 `unknown` results. The corpus has not been reviewed by counsel, and neither has our output.

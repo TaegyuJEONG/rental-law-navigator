@@ -1,4 +1,4 @@
-import { lookup, statusOf, runChangeTest, findings, DEFAULT_AS_OF } from './engine.js';
+import { lookup, statusOf, runChangeTest, findings, DEFAULT_AS_OF } from './engine.js?v=15';
 
 const [rules, addresses, meta] = await Promise.all(['rules', 'addresses', 'meta'].map(f => fetch(`data/${f}.json`).then(r => r.json())));
 const byId = Object.fromEntries(rules.map(r => [r.team_rule_id, r]));

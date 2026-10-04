@@ -8,8 +8,7 @@ const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const rd = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const wr = (p, o) => { fs.mkdirSync(path.dirname(path.join(ROOT, p)), { recursive: true }); fs.writeFileSync(path.join(ROOT, p), JSON.stringify(o, null, 1)); };
 
-const SCOPE = ['CA', 'NJ', 'MA', 'Los Angeles, CA', 'San Francisco, CA', 'San Diego, CA', 'Berkeley, CA', 'Santa Ana, CA', 'Jersey City, NJ', 'Hoboken, NJ', 'Newark, NJ', 'Boston, MA', 'Cambridge, MA'];
-const CATS = ['rent_increase_limits', 'just_cause_eviction', 'security_deposits', 'application_screening_fees', 'screening_restrictions', 'algorithmic_rent_setting'];
+const { jurisdictions: SCOPE, categories: CATS } = rd('config/scope.json');
 const asOf = process.argv[2] || DEFAULT_AS_OF;
 
 const full = rd('cache/rules_merged.json').rules;

@@ -84,6 +84,8 @@ export function evaluate(rule, a, asOf = DEFAULT_AS_OF, byId = null) {
   if (rule.rule_kind === 'bars_local_regulation') parts.push('this state law bars local regulation of this kind, so no local rule of this category exists here');
   for (const t of tests) parts.push(t.why);
   const c = rule.coverage_conditions || {};
+  if (c.other_unresolvable && (result === 'applies' || result === 'superseded'))
+    parts.push(`not checked against public data, which cannot show it: ${String(c.other_unresolvable).replace(/\.$/, '').slice(0, 160)}`);
   if (c.small_owner_exception) parts.push('an owner-type exception exists in the text; owner names are not public, so whether it applies cannot be confirmed');
   if (a.jurisdiction_note) parts.push(a.jurisdiction_note.replace(/\.$/, ''));
   return { team_rule_id: rule.team_rule_id, category: rule.category, status, result, reasons: parts, tests };

@@ -1,0 +1,26 @@
+{
+ "_comment": "Jurisdictions and categories the pipeline keeps. To add a jurisdiction: add it here, add its documents, and add addresses in it. No law content lives in this file.",
+ "jurisdictions": [
+  "CA",
+  "NJ",
+  "MA",
+  "Los Angeles, CA",
+  "San Francisco, CA",
+  "San Diego, CA",
+  "Berkeley, CA",
+  "Santa Ana, CA",
+  "Jersey City, NJ",
+  "Hoboken, NJ",
+  "Newark, NJ",
+  "Boston, MA",
+  "Cambridge, MA"
+ ],
+ "categories": [
+  "rent_increase_limits",
+  "just_cause_eviction",
+  "security_deposits",
+  "application_screening_fees",
+  "screening_restrictions",
+  "algorithmic_rent_setting"
+ ]
+}

@@ -39,11 +39,13 @@ View the app locally:
 python3 -m http.server 4173 --directory web
 ```
 
-Add a new law text (a new ordinance or a new jurisdiction) and recompute every answer:
+Add a new law text for a jurisdiction in scope and recompute every answer:
 
 ```bash
 ./add_document.sh path/to/ordinance.txt "Cambridge, MA"
 ```
+
+A new jurisdiction needs three things: a line in `config/scope.json`, its law texts, and addresses in it. If it is in a new state, that state's statutes are needed too. This has not been done for any jurisdiction outside the starter pack.
 
 ## How it works
 
@@ -68,6 +70,7 @@ The organisers do not distribute `score.py` or an answer key, so these numbers a
 - Owner names, many unit counts and many construction years are not in public assessor data. Those answers are `unknown`.
 - Year built is not the certificate-of-occupancy date. Buildings in a cutoff year are `unknown`.
 - Jersey City and Hoboken algorithmic-pricing bans, Newark ordinances and two Massachusetts regulations have no text in the distributed corpus. They are supported by link-only pages and marked as lower confidence.
-- 13 addresses could not be matched by the Census batch geocoder. Seven were matched after normalising the street, and six were placed from resolved neighbours with the same ZIP or postal city and are marked as inferred.
+- 23 addresses could not be matched by the Census batch geocoder. 15 were matched after normalising the street format. 8 were placed from resolved sample addresses with the same ZIP or postal city; they are marked as inferred and every answer for them says so.
+- Exemptions for special property types (hotels, care facilities, condominiums and similar) are not checked, because assessor data cannot show them. Where a rule's date and unit tests pass, the result is `applies` and the explanation states what was not checked.
 - Possible preemption of the Jersey City and Hoboken ordinances by the New Jersey FAIR Act is flagged for human review, not decided.
 - Spanish text is machine translated.
