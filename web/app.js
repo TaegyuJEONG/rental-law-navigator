@@ -7,13 +7,13 @@ const S = { asOf: meta.as_of || DEFAULT_AS_OF, view: 'lookup', addr: null, q: ''
 const T = {
   en: { legal: 'Not legal advice. This prototype shows what public law text says for an address; it is not a compliance certification.',
     tagline: 'Which rules apply at this address on this date — every answer cited to its source.', asof: 'As of', tab_lookup: 'Address lookup', tab_changes: 'Change tracking', tab_rules: 'Rules', tab_method: 'Method & audit', today: 'Default date',
-    search: 'Search 500 sample addresses (street, city, ZIP or id)', allcities: 'All cities', pick: 'Pick an address to see the rules that reach it.',
+    search: 'Search an address (street, city or ZIP)', allcities: 'All cities', pick: 'Search for an address on the left to see which rules reach it, with the source for each.',
     applies: 'Applies', unknown: 'Unknown', superseded: 'Superseded', not_yet_effective: 'Not yet effective', pending: 'Pending — not law', failed: 'Failed', in_force: 'In force',
     why: 'Why', source: 'Source and quoted text', norule: 'No rule at this level', conflict: 'Conflict — needs human review', built: 'Year built', units: 'Units', use: 'Use', juris: 'Jurisdiction',
     cats: { rent_increase_limits: 'Rent increases', just_cause_eviction: 'Just-cause eviction', security_deposits: 'Security deposit', application_screening_fees: 'Application & screening fees', screening_restrictions: 'Screening restrictions', algorithmic_rent_setting: 'Algorithmic rent-setting' } },
   es: { legal: 'No es asesoría legal. Este prototipo muestra lo que dice la ley pública para una dirección; no certifica el cumplimiento.',
     tagline: 'Qué reglas aplican en esta dirección en esta fecha — cada respuesta citada a su fuente.', asof: 'A fecha de', tab_lookup: 'Buscar dirección', tab_changes: 'Cambios en la ley', tab_rules: 'Reglas', tab_method: 'Método y auditoría', today: 'Fecha por defecto',
-    search: 'Buscar entre 500 direcciones (calle, ciudad, código postal o id)', allcities: 'Todas las ciudades', pick: 'Elija una dirección para ver las reglas que le aplican.',
+    search: 'Buscar una dirección (calle, ciudad o código postal)', allcities: 'Todas las ciudades', pick: 'Elija una dirección para ver las reglas que le aplican.',
     applies: 'Aplica', unknown: 'Desconocido', superseded: 'Reemplazada', not_yet_effective: 'Aún no vigente', pending: 'Pendiente — no es ley', failed: 'Fallida', in_force: 'Vigente',
     why: 'Por qué', source: 'Fuente y texto citado', norule: 'No hay regla en este nivel', conflict: 'Conflicto — requiere revisión humana', built: 'Año de construcción', units: 'Unidades', use: 'Uso', juris: 'Jurisdicción',
     cats: { rent_increase_limits: 'Aumentos de renta', just_cause_eviction: 'Desalojo con causa justa', security_deposits: 'Depósito de garantía', application_screening_fees: 'Cuotas de solicitud y evaluación', screening_restrictions: 'Restricciones de evaluación', algorithmic_rent_setting: 'Fijación algorítmica de rentas' } },
@@ -88,11 +88,15 @@ function renderAddress() {
 
 function renderLookup() {
   const cities = [...new Set(addresses.map(a => a.city))].sort();
-  const q = S.q.toLowerCase();
-  const list = addresses.filter(a => (!S.city || a.city === S.city) && (!q || `${a.street_address} ${a.postal_city} ${a.zip} ${a.address_id} ${a.city}`.toLowerCase().includes(q))).slice(0, 200);
-  view.innerHTML = `<div class="grid"><div class="card"><input type="search" id="q" placeholder="${t('search')}" value="${esc(S.q)}">
+  const q = S.q.trim().toLowerCase();
+  const active = q || S.city;
+  const list = active ? addresses.filter(a => (!S.city || a.city === S.city) && (!q || `${a.street_address} ${a.postal_city} ${a.zip} ${a.address_id} ${a.city}`.toLowerCase().includes(q))) : [];
+  const examples = [['A0001', 'Los Angeles, built 1927'], ['A0002', 'Hoboken'], ['A0065', 'Dorchester → Boston'], ['A0107', 'Los Angeles, built 1978']];
+  view.innerHTML = `<div class="grid"><div class="card"><input type="search" id="q" placeholder="${t('search')}" value="${esc(S.q)}" autocomplete="off">
     <select id="city" style="margin-top:8px"><option value="">${t('allcities')}</option>${cities.map(c => `<option ${c === S.city ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select>
-    <div class="list">${list.map(a => `<div class="row ${S.addr && a.address_id === S.addr.address_id ? 'on' : ''}" data-a="${a.address_id}">${esc(a.street_address)}<small>${esc(a.city)}${a.postal_city_differs ? ` (mail: ${esc(a.postal_city)})` : ''} · ${a.address_id}</small></div>`).join('')}</div></div>
+    <div class="count">${active ? `${list.length} of ${addresses.length} addresses match` : `${addresses.length} sample addresses in ${cities.length} cities. Type a street, ZIP or city to search.`}</div>
+    ${active ? `<div class="list">${list.map(a => `<div class="row ${S.addr && a.address_id === S.addr.address_id ? 'on' : ''}" data-a="${a.address_id}">${esc(a.street_address)}<small>${esc(a.city)}${a.postal_city_differs ? ` (mail: ${esc(a.postal_city)})` : ''} · ${a.address_id}</small></div>`).join('') || '<div class="none">No sample address matches. Try fewer letters.</div>'}</div>`
+      : `<div class="count">Examples:</div>${examples.map(([id, lab]) => `<div class="row" data-a="${id}">${esc(addresses.find(a => a.address_id === id).street_address)}<small>${esc(lab)}</small></div>`).join('')}`}</div>
     <div id="detail">${renderAddress()}</div></div>`;
   $('#q').oninput = e => { S.q = e.target.value; const p = e.target.selectionStart; renderLookup(); const n = $('#q'); n.focus(); n.setSelectionRange(p, p); };
   $('#city').onchange = e => { S.city = e.target.value; renderLookup(); };
@@ -174,5 +178,4 @@ $('#today').onclick = () => setDate(DEFAULT_AS_OF);
 
 $('#asof').onchange = e => { if (e.target.value) { S.asOf = e.target.value; chrome(); go(S.view); } };
 $('#lang').onclick = () => { S.lang = S.lang === 'en' ? 'es' : 'en'; chrome(); go(S.view); };
-S.addr = addresses.find(a => a.address_id === 'A0001');
 chrome(); go('lookup');
