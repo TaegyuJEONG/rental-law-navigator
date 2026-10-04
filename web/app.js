@@ -6,13 +6,13 @@ const S = { asOf: meta.as_of || DEFAULT_AS_OF, view: 'lookup', addr: null, q: ''
 
 const T = {
   en: { legal: 'Not legal advice. This prototype shows what public law text says for an address; it is not a compliance certification.',
-    tagline: 'Which rules apply at this address on this date — every answer cited to its source.', asof: 'As of', tab_lookup: 'Address lookup', tab_changes: 'Change tracking', tab_rules: 'Rules', tab_method: 'Method & audit',
+    tagline: 'Which rules apply at this address on this date — every answer cited to its source.', asof: 'As of', tab_lookup: 'Address lookup', tab_changes: 'Change tracking', tab_rules: 'Rules', tab_method: 'Method & audit', today: 'Default date',
     search: 'Search 500 sample addresses (street, city, ZIP or id)', allcities: 'All cities', pick: 'Pick an address to see the rules that reach it.',
     applies: 'Applies', unknown: 'Unknown', superseded: 'Superseded', not_yet_effective: 'Not yet effective', pending: 'Pending — not law', failed: 'Failed', in_force: 'In force',
     why: 'Why', source: 'Source and quoted text', norule: 'No rule at this level', conflict: 'Conflict — needs human review', built: 'Year built', units: 'Units', use: 'Use', juris: 'Jurisdiction',
     cats: { rent_increase_limits: 'Rent increases', just_cause_eviction: 'Just-cause eviction', security_deposits: 'Security deposit', application_screening_fees: 'Application & screening fees', screening_restrictions: 'Screening restrictions', algorithmic_rent_setting: 'Algorithmic rent-setting' } },
   es: { legal: 'No es asesoría legal. Este prototipo muestra lo que dice el texto público de la ley para una dirección; no es una certificación de cumplimiento.',
-    tagline: 'Qué reglas aplican en esta dirección en esta fecha — cada respuesta citada a su fuente.', asof: 'A fecha de', tab_lookup: 'Buscar dirección', tab_changes: 'Cambios en la ley', tab_rules: 'Reglas', tab_method: 'Método y auditoría',
+    tagline: 'Qué reglas aplican en esta dirección en esta fecha — cada respuesta citada a su fuente.', asof: 'A fecha de', tab_lookup: 'Buscar dirección', tab_changes: 'Cambios en la ley', tab_rules: 'Reglas', tab_method: 'Método y auditoría', today: 'Fecha por defecto',
     search: 'Buscar entre 500 direcciones (calle, ciudad, código postal o id)', allcities: 'Todas las ciudades', pick: 'Elija una dirección para ver las reglas que le aplican.',
     applies: 'Aplica', unknown: 'Desconocido', superseded: 'Reemplazada', not_yet_effective: 'Aún no vigente', pending: 'Pendiente — no es ley', failed: 'Fallida', in_force: 'Vigente',
     why: 'Por qué', source: 'Fuente y texto citado', norule: 'No hay regla en este nivel', conflict: 'Conflicto — requiere revisión humana', built: 'Año de construcción', units: 'Unidades', use: 'Uso', juris: 'Jurisdicción',
@@ -134,17 +134,37 @@ function renderMethod() {
     <li>Extraction uses a language model; outputs are cached by document hash so a rerun reproduces the same records. Every model call is in the audit log.</li></ul></div>`;
 }
 
+// Timeline of dates on which some rule starts: the arrows step between "the day before" and "the day it takes effect".
+const day = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
+const starts = {};
+for (const r of rules) if (r.legal_stage === 'enacted' && r.effective_date && r.effective_date_kind !== 'amendment_or_periodic') {
+  const d = (r.effective_date + '-01-01').slice(0, 10); (starts[d] ||= []).push(r);
+}
+const points = [...new Set(Object.keys(starts).flatMap(d => [day(d, -1), d]).concat(DEFAULT_AS_OF))].sort();
+function asOfNote() {
+  const label = r => `${r.jurisdiction}: ${r.title}`;
+  const on = starts[S.asOf], tomorrow = starts[day(S.asOf, 1)];
+  const nxt = points.find(p => p > S.asOf && starts[p]);
+  return on ? `Takes effect on this day — ${on.map(label).join('; ')}` : tomorrow ? `Day before a change — tomorrow: ${tomorrow.map(label).join('; ')}`
+    : nxt ? `Next law change in the data: ${nxt}. Use ‹ › to step between law-change dates.` : 'No later law change in the data. Use ‹ to step back.';
+}
+
 const views = { lookup: renderLookup, changes: renderChanges, rules: renderRules, method: renderMethod };
 function go(v) { S.view = v; document.querySelectorAll('#nav button').forEach(b => b.classList.toggle('on', b.dataset.v === v)); views[v](); }
 function chrome() {
   document.querySelectorAll('[data-i]').forEach(el => el.textContent = t(el.dataset.i));
   $('#asof').value = S.asOf;
-  document.querySelectorAll('.asof button[data-d]').forEach(b => b.classList.toggle('on', b.dataset.d === S.asOf));
+  $('#asofnote').textContent = asOfNote();
+  $('#prev').disabled = !points.some(p => p < S.asOf); $('#next').disabled = !points.some(p => p > S.asOf);
+  $('#today').classList.toggle('on', S.asOf === DEFAULT_AS_OF);
   $('#lang').textContent = S.lang === 'en' ? 'Español' : 'English';
   document.documentElement.lang = S.lang;
 }
 document.querySelectorAll('#nav button').forEach(b => b.onclick = () => go(b.dataset.v));
-document.querySelectorAll('.asof button[data-d]').forEach(b => b.onclick = () => { S.asOf = b.dataset.d; chrome(); go(S.view); });
+const setDate = d => { if (d) { S.asOf = d; chrome(); go(S.view); } };
+$('#today').onclick = () => setDate(DEFAULT_AS_OF);
+$('#prev').onclick = () => setDate([...points].reverse().find(p => p < S.asOf));
+$('#next').onclick = () => setDate(points.find(p => p > S.asOf));
 $('#asof').onchange = e => { if (e.target.value) { S.asOf = e.target.value; chrome(); go(S.view); } };
 $('#lang').onclick = () => { S.lang = S.lang === 'en' ? 'es' : 'en'; chrome(); go(S.view); };
 S.addr = addresses.find(a => a.address_id === 'A0001');
