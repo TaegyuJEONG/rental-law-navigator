@@ -59,7 +59,7 @@ Add a new law text (a new ordinance or a new jurisdiction) and recompute every a
 - 56 rules: 50 in force, 1 not yet effective, 2 pending, 3 failed.
 - 500 of 500 addresses resolved to the legal city counts in the participant guide.
 - T1 250 affected · T2 90 · T3 140 affected, 90 conflict flags · T4 110 · T5 0.
-- Self-validation: 12 of 12 checks pass (`python3 pipeline/validate.py`).
+- Self-validation: 13 of 13 checks pass (`python3 pipeline/validate.py`).
 
 The organisers do not distribute `score.py` or an answer key, so these numbers are our own checks, not an official score.
 
