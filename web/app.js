@@ -122,13 +122,17 @@ function renderRules() {
   const f = S.rf;
   const list = rules.filter(r => (!f.j || r.jurisdiction === f.j) && (!f.c || r.category === f.c) && (!f.s || statusOf(r, S.asOf) === f.s) && (!f.id || r.team_rule_id === f.id));
   const opt = (arr, cur, lab) => `<option value="">${lab}</option>` + arr.map(v => `<option ${v === cur ? 'selected' : ''}>${v}</option>`).join('');
-  view.innerHTML = `<div class="card"><h2>${rules.length} extracted rules</h2><div class="sub">One record per law, per category, per jurisdiction. Status is computed for ${S.asOf} from the dates in the text.</div>
+  view.innerHTML = `<div class="card"><h2>${list.length === rules.length ? rules.length + ' extracted rules' : list.length + ' of ' + rules.length + ' extracted rules'}</h2><div class="sub">One record per law, per category, per jurisdiction. Status is computed for ${S.asOf} from the dates in the text.</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0"><select id="fj" style="max-width:220px">${opt(meta.scope, f.j, 'All jurisdictions')}</select><select id="fc" style="max-width:240px">${opt(meta.categories, f.c, 'All categories')}</select>
     <select id="fs" style="max-width:200px">${opt(['in_force', 'not_yet_effective', 'pending', 'failed'], f.s, 'All statuses')}</select>${f.id ? `<button id="clr">Showing ${f.id} — clear</button>` : ''}</div>
     ${list.map(r => { const st = statusOf(r, S.asOf); return `<div class="rule"><div class="top"><span class="badge b-${st}">${t(st)}</span>${r.conflict_flag ? `<span class="badge b-conflict">${t('conflict')}</span>` : ''}<span class="t">${esc(r.team_rule_id)} · ${esc(r.jurisdiction)} · ${esc(r.title)}</span></div>
       <div class="req">${esc(text(r, 'requirement'))}</div>${r.key_value ? `<div class="kv">${esc(r.key_value)}</div>` : ''}<div class="cite">${esc(r.citation)} · ${esc(r.source_doc_id)} · retrieved ${esc(r.retrieved_at || 'n/a')}</div>${sourceBlock(r)}</div>`; }).join('')}</div>
-    <div class="card" style="margin-top:12px"><h2>“No rule at this level” findings (${meta.findings.length})</h2><div class="tw"><table><tr><th>Jurisdiction</th><th>Category</th><th>Finding</th></tr>
-    ${findings(rules, meta.scope, meta.categories, S.asOf).map(x => `<tr><td>${esc(x.jurisdiction)}</td><td>${esc(T.en.cats[x.category])}</td><td>${esc(x.note)}${x.pending.length ? ` Pending: ${x.pending.join(', ')}.` : ''}${x.failed.length ? ` Failed: ${x.failed.join(', ')}.` : ''}</td></tr>`).join('')}</table></div></div>`;
+    ${(() => { if (f.s || f.id) return '';
+      const fl = findings(rules, meta.scope, meta.categories, S.asOf).filter(x => (!f.j || x.jurisdiction === f.j) && (!f.c || x.category === f.c));
+      return `<details class="card" style="margin-top:12px"><summary>Where no rule was found: ${fl.length} jurisdiction and category combination(s)${f.j || f.c ? ' matching the filter' : ''}</summary>
+      <div class="sub" style="margin:8px 0">A combination is listed when no enacted rule of that category was extracted for that jurisdiction as of ${S.asOf}. That means the corpus has none, not that the law has none.</div>
+      <div class="tw"><table><tr><th>Jurisdiction</th><th>Category</th><th>Finding</th></tr>
+      ${fl.map(x => `<tr><td>${esc(x.jurisdiction)}</td><td>${esc(T.en.cats[x.category])}</td><td>${esc(x.note)}${x.pending.length ? ` Pending: ${x.pending.join(', ')}.` : ''}${x.failed.length ? ` Failed: ${x.failed.join(', ')}.` : ''}</td></tr>`).join('')}</table></div></details>`; })()}`;
   for (const [id, k] of [['fj', 'j'], ['fc', 'c'], ['fs', 's']]) $('#' + id).onchange = e => { S.rf[k] = e.target.value; S.rf.id = ''; renderRules(); };
   if ($('#clr')) $('#clr').onclick = () => { S.rf.id = ''; renderRules(); };
 }
