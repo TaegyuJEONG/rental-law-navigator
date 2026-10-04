@@ -1,0 +1,8 @@
+.env
+__pycache__/
+.DS_Store
+node_modules/
+.vercel
+.claude/
+# link-only pages saved for research: not redistributed (publisher terms); rules.json keeps the short quotes and URLs
+research/

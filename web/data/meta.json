@@ -1,0 +1,1742 @@
+{
+ "as_of": "2026-10-01",
+ "built_at": "2026-10-04T00:09:40.515Z",
+ "scope": [
+  "CA",
+  "NJ",
+  "MA",
+  "Los Angeles, CA",
+  "San Francisco, CA",
+  "San Diego, CA",
+  "Berkeley, CA",
+  "Santa Ana, CA",
+  "Jersey City, NJ",
+  "Hoboken, NJ",
+  "Newark, NJ",
+  "Boston, MA",
+  "Cambridge, MA"
+ ],
+ "categories": [
+  "rent_increase_limits",
+  "just_cause_eviction",
+  "security_deposits",
+  "application_screening_fees",
+  "screening_restrictions",
+  "algorithmic_rent_setting"
+ ],
+ "tests": [
+  {
+   "test_id": "T1",
+   "title": "California AB 325 / SB 763 takes effect",
+   "type": "as_of",
+   "rule_ids": [
+    "CA-ALG-01"
+   ],
+   "as_of_before": "2025-12-31",
+   "as_of_after": "2026-01-02",
+   "states": [
+    "CA"
+   ],
+   "expected_behavior": "not_yet_effective before, applies after, for every CA address."
+  },
+  {
+   "test_id": "T2",
+   "title": "Hoboken vs Jersey City local algorithmic bans",
+   "type": "boundary",
+   "rule_ids": [
+    "HOB-ALG-01",
+    "JC-ALG-01"
+   ],
+   "as_of": "2026-10-01",
+   "expected_behavior": "HOB-ALG-01 only for Hoboken addresses; JC-ALG-01 only for Jersey City addresses; neither for Newark."
+  },
+  {
+   "test_id": "T3",
+   "title": "NJ FAIR Act: enacted, not yet effective; possible preemption",
+   "type": "as_of",
+   "rule_ids": [
+    "NJ-ALG-01"
+   ],
+   "as_of_before": "2026-10-01",
+   "as_of_after": "2027-07-02",
+   "states": [
+    "NJ"
+   ],
+   "conflict_with": [
+    "JC-ALG-01",
+    "HOB-ALG-01"
+   ],
+   "expected_behavior": "not_yet_effective on 2026-10-01, applies on 2027-07-02 for every NJ address; Jersey City and Hoboken addresses carry a conflict flag for human review."
+  },
+  {
+   "test_id": "T4",
+   "title": "Massachusetts pending bills S.2983 and H.5222",
+   "type": "pending",
+   "rule_ids": [
+    "MA-ALG-P1",
+    "MA-ALG-P2"
+   ],
+   "as_of": "2026-10-01",
+   "states": [
+    "MA"
+   ],
+   "expected_behavior": "Reported as pending (not in force) for every Boston and Cambridge address; affected set = all MA addresses if enacted."
+  },
+  {
+   "test_id": "T5",
+   "title": "Massachusetts rent-control ballot question struck",
+   "type": "negative",
+   "rule_ids": [
+    "MA-RENT-P1"
+   ],
+   "as_of": "2026-10-01",
+   "states": [
+    "MA"
+   ],
+   "expected_behavior": "No rent cap reported for any Boston or Cambridge address; IP 25-21 recorded as failed. Affected set is empty."
+  }
+ ],
+ "changes": {
+  "T1": {
+   "affected_address_ids": [
+    "A0001",
+    "A0004",
+    "A0005",
+    "A0007",
+    "A0014",
+    "A0016",
+    "A0018",
+    "A0019",
+    "A0021",
+    "A0022",
+    "A0023",
+    "A0025",
+    "A0027",
+    "A0030",
+    "A0031",
+    "A0033",
+    "A0035",
+    "A0037",
+    "A0038",
+    "A0041",
+    "A0045",
+    "A0050",
+    "A0055",
+    "A0058",
+    "A0060",
+    "A0061",
+    "A0062",
+    "A0066",
+    "A0067",
+    "A0069",
+    "A0072",
+    "A0074",
+    "A0079",
+    "A0080",
+    "A0081",
+    "A0084",
+    "A0085",
+    "A0088",
+    "A0091",
+    "A0092",
+    "A0094",
+    "A0097",
+    "A0100",
+    "A0103",
+    "A0105",
+    "A0106",
+    "A0107",
+    "A0109",
+    "A0111",
+    "A0112",
+    "A0113",
+    "A0114",
+    "A0115",
+    "A0117",
+    "A0121",
+    "A0122",
+    "A0126",
+    "A0127",
+    "A0133",
+    "A0135",
+    "A0138",
+    "A0141",
+    "A0142",
+    "A0145",
+    "A0147",
+    "A0150",
+    "A0152",
+    "A0153",
+    "A0154",
+    "A0156",
+    "A0157",
+    "A0158",
+    "A0162",
+    "A0164",
+    "A0165",
+    "A0167",
+    "A0170",
+    "A0172",
+    "A0173",
+    "A0178",
+    "A0179",
+    "A0180",
+    "A0183",
+    "A0184",
+    "A0188",
+    "A0189",
+    "A0192",
+    "A0193",
+    "A0196",
+    "A0197",
+    "A0200",
+    "A0201",
+    "A0202",
+    "A0205",
+    "A0206",
+    "A0207",
+    "A0210",
+    "A0212",
+    "A0213",
+    "A0215",
+    "A0216",
+    "A0219",
+    "A0222",
+    "A0224",
+    "A0225",
+    "A0228",
+    "A0229",
+    "A0231",
+    "A0234",
+    "A0235",
+    "A0236",
+    "A0237",
+    "A0238",
+    "A0239",
+    "A0240",
+    "A0246",
+    "A0247",
+    "A0248",
+    "A0251",
+    "A0252",
+    "A0253",
+    "A0255",
+    "A0257",
+    "A0259",
+    "A0260",
+    "A0262",
+    "A0263",
+    "A0267",
+    "A0268",
+    "A0271",
+    "A0273",
+    "A0274",
+    "A0275",
+    "A0276",
+    "A0277",
+    "A0278",
+    "A0280",
+    "A0281",
+    "A0282",
+    "A0283",
+    "A0285",
+    "A0289",
+    "A0293",
+    "A0303",
+    "A0304",
+    "A0305",
+    "A0309",
+    "A0314",
+    "A0315",
+    "A0316",
+    "A0317",
+    "A0318",
+    "A0319",
+    "A0322",
+    "A0323",
+    "A0324",
+    "A0327",
+    "A0328",
+    "A0330",
+    "A0333",
+    "A0334",
+    "A0335",
+    "A0340",
+    "A0341",
+    "A0345",
+    "A0346",
+    "A0347",
+    "A0349",
+    "A0351",
+    "A0353",
+    "A0355",
+    "A0357",
+    "A0363",
+    "A0364",
+    "A0365",
+    "A0367",
+    "A0368",
+    "A0369",
+    "A0370",
+    "A0373",
+    "A0374",
+    "A0375",
+    "A0378",
+    "A0379",
+    "A0382",
+    "A0383",
+    "A0384",
+    "A0385",
+    "A0386",
+    "A0387",
+    "A0391",
+    "A0392",
+    "A0395",
+    "A0396",
+    "A0397",
+    "A0398",
+    "A0401",
+    "A0402",
+    "A0405",
+    "A0407",
+    "A0408",
+    "A0409",
+    "A0411",
+    "A0413",
+    "A0414",
+    "A0417",
+    "A0419",
+    "A0420",
+    "A0421",
+    "A0425",
+    "A0426",
+    "A0427",
+    "A0430",
+    "A0431",
+    "A0432",
+    "A0433",
+    "A0434",
+    "A0437",
+    "A0439",
+    "A0440",
+    "A0441",
+    "A0442",
+    "A0443",
+    "A0445",
+    "A0451",
+    "A0452",
+    "A0454",
+    "A0456",
+    "A0457",
+    "A0458",
+    "A0461",
+    "A0469",
+    "A0470",
+    "A0474",
+    "A0477",
+    "A0478",
+    "A0479",
+    "A0480",
+    "A0481",
+    "A0483",
+    "A0484",
+    "A0486",
+    "A0487",
+    "A0492",
+    "A0493",
+    "A0494",
+    "A0496",
+    "A0497",
+    "A0499",
+    "A0500"
+   ],
+   "conflict_flag_address_ids": [],
+   "notes": "California AB 325 / SB 763 takes effect. Organiser rule ids mapped to team rules: CA-ALG-01 -> CA-ALG-01. Compared lookups as of 2025-12-31 and 2026-01-02; affected = addresses whose result changes."
+  },
+  "T2": {
+   "affected_address_ids": [
+    "A0002",
+    "A0008",
+    "A0012",
+    "A0017",
+    "A0026",
+    "A0032",
+    "A0040",
+    "A0042",
+    "A0047",
+    "A0049",
+    "A0051",
+    "A0078",
+    "A0087",
+    "A0089",
+    "A0099",
+    "A0101",
+    "A0102",
+    "A0108",
+    "A0116",
+    "A0119",
+    "A0125",
+    "A0131",
+    "A0136",
+    "A0139",
+    "A0160",
+    "A0161",
+    "A0163",
+    "A0168",
+    "A0171",
+    "A0177",
+    "A0181",
+    "A0182",
+    "A0185",
+    "A0186",
+    "A0187",
+    "A0208",
+    "A0223",
+    "A0227",
+    "A0241",
+    "A0243",
+    "A0244",
+    "A0250",
+    "A0254",
+    "A0256",
+    "A0261",
+    "A0265",
+    "A0266",
+    "A0269",
+    "A0270",
+    "A0279",
+    "A0287",
+    "A0288",
+    "A0299",
+    "A0308",
+    "A0320",
+    "A0321",
+    "A0325",
+    "A0344",
+    "A0348",
+    "A0350",
+    "A0359",
+    "A0360",
+    "A0372",
+    "A0377",
+    "A0388",
+    "A0389",
+    "A0393",
+    "A0394",
+    "A0399",
+    "A0404",
+    "A0410",
+    "A0415",
+    "A0416",
+    "A0418",
+    "A0424",
+    "A0435",
+    "A0436",
+    "A0438",
+    "A0447",
+    "A0450",
+    "A0455",
+    "A0459",
+    "A0462",
+    "A0471",
+    "A0472",
+    "A0475",
+    "A0482",
+    "A0489",
+    "A0490",
+    "A0495"
+   ],
+   "conflict_flag_address_ids": [],
+   "notes": "Hoboken vs Jersey City local algorithmic bans. Organiser rule ids mapped to team rules: HOB-ALG-01 -> HOB-ALG-01; JC-ALG-01 -> JC-ALG-01. As of 2026-10-01; affected = addresses where either local rule reaches the address (legal city from the Census Geocoder, not the postal city)."
+  },
+  "T3": {
+   "affected_address_ids": [
+    "A0002",
+    "A0003",
+    "A0008",
+    "A0011",
+    "A0012",
+    "A0013",
+    "A0017",
+    "A0020",
+    "A0026",
+    "A0028",
+    "A0029",
+    "A0032",
+    "A0040",
+    "A0042",
+    "A0044",
+    "A0047",
+    "A0049",
+    "A0051",
+    "A0057",
+    "A0059",
+    "A0076",
+    "A0078",
+    "A0087",
+    "A0089",
+    "A0090",
+    "A0099",
+    "A0101",
+    "A0102",
+    "A0104",
+    "A0108",
+    "A0110",
+    "A0116",
+    "A0119",
+    "A0120",
+    "A0125",
+    "A0129",
+    "A0130",
+    "A0131",
+    "A0132",
+    "A0136",
+    "A0137",
+    "A0139",
+    "A0146",
+    "A0148",
+    "A0159",
+    "A0160",
+    "A0161",
+    "A0163",
+    "A0168",
+    "A0171",
+    "A0177",
+    "A0181",
+    "A0182",
+    "A0185",
+    "A0186",
+    "A0187",
+    "A0190",
+    "A0204",
+    "A0208",
+    "A0223",
+    "A0227",
+    "A0241",
+    "A0243",
+    "A0244",
+    "A0249",
+    "A0250",
+    "A0254",
+    "A0256",
+    "A0261",
+    "A0264",
+    "A0265",
+    "A0266",
+    "A0269",
+    "A0270",
+    "A0279",
+    "A0287",
+    "A0288",
+    "A0296",
+    "A0297",
+    "A0299",
+    "A0307",
+    "A0308",
+    "A0311",
+    "A0313",
+    "A0320",
+    "A0321",
+    "A0325",
+    "A0326",
+    "A0329",
+    "A0331",
+    "A0337",
+    "A0338",
+    "A0343",
+    "A0344",
+    "A0348",
+    "A0350",
+    "A0352",
+    "A0358",
+    "A0359",
+    "A0360",
+    "A0371",
+    "A0372",
+    "A0377",
+    "A0381",
+    "A0388",
+    "A0389",
+    "A0390",
+    "A0393",
+    "A0394",
+    "A0399",
+    "A0400",
+    "A0404",
+    "A0410",
+    "A0412",
+    "A0415",
+    "A0416",
+    "A0418",
+    "A0424",
+    "A0428",
+    "A0435",
+    "A0436",
+    "A0438",
+    "A0447",
+    "A0448",
+    "A0449",
+    "A0450",
+    "A0455",
+    "A0459",
+    "A0460",
+    "A0462",
+    "A0471",
+    "A0472",
+    "A0475",
+    "A0476",
+    "A0482",
+    "A0489",
+    "A0490",
+    "A0491",
+    "A0495",
+    "A0498"
+   ],
+   "conflict_flag_address_ids": [
+    "A0002",
+    "A0008",
+    "A0012",
+    "A0017",
+    "A0026",
+    "A0032",
+    "A0040",
+    "A0042",
+    "A0047",
+    "A0049",
+    "A0051",
+    "A0078",
+    "A0087",
+    "A0089",
+    "A0099",
+    "A0101",
+    "A0102",
+    "A0108",
+    "A0116",
+    "A0119",
+    "A0125",
+    "A0131",
+    "A0136",
+    "A0139",
+    "A0160",
+    "A0161",
+    "A0163",
+    "A0168",
+    "A0171",
+    "A0177",
+    "A0181",
+    "A0182",
+    "A0185",
+    "A0186",
+    "A0187",
+    "A0208",
+    "A0223",
+    "A0227",
+    "A0241",
+    "A0243",
+    "A0244",
+    "A0250",
+    "A0254",
+    "A0256",
+    "A0261",
+    "A0265",
+    "A0266",
+    "A0269",
+    "A0270",
+    "A0279",
+    "A0287",
+    "A0288",
+    "A0299",
+    "A0308",
+    "A0320",
+    "A0321",
+    "A0325",
+    "A0344",
+    "A0348",
+    "A0350",
+    "A0359",
+    "A0360",
+    "A0372",
+    "A0377",
+    "A0388",
+    "A0389",
+    "A0393",
+    "A0394",
+    "A0399",
+    "A0404",
+    "A0410",
+    "A0415",
+    "A0416",
+    "A0418",
+    "A0424",
+    "A0435",
+    "A0436",
+    "A0438",
+    "A0447",
+    "A0450",
+    "A0455",
+    "A0459",
+    "A0462",
+    "A0471",
+    "A0472",
+    "A0475",
+    "A0482",
+    "A0489",
+    "A0490",
+    "A0495"
+   ],
+   "notes": "NJ FAIR Act: enacted, not yet effective; possible preemption. Organiser rule ids mapped to team rules: NJ-ALG-01 -> NJ-ALG-01. Compared lookups as of 2026-10-01 and 2027-07-02; affected = addresses whose result changes."
+  },
+  "T4": {
+   "affected_address_ids": [
+    "A0006",
+    "A0009",
+    "A0010",
+    "A0015",
+    "A0024",
+    "A0034",
+    "A0036",
+    "A0039",
+    "A0043",
+    "A0046",
+    "A0048",
+    "A0052",
+    "A0053",
+    "A0054",
+    "A0056",
+    "A0063",
+    "A0064",
+    "A0065",
+    "A0068",
+    "A0070",
+    "A0071",
+    "A0073",
+    "A0075",
+    "A0077",
+    "A0082",
+    "A0083",
+    "A0086",
+    "A0093",
+    "A0095",
+    "A0096",
+    "A0098",
+    "A0118",
+    "A0123",
+    "A0124",
+    "A0128",
+    "A0134",
+    "A0140",
+    "A0143",
+    "A0144",
+    "A0149",
+    "A0151",
+    "A0155",
+    "A0166",
+    "A0169",
+    "A0174",
+    "A0175",
+    "A0176",
+    "A0191",
+    "A0194",
+    "A0195",
+    "A0198",
+    "A0199",
+    "A0203",
+    "A0209",
+    "A0211",
+    "A0214",
+    "A0217",
+    "A0218",
+    "A0220",
+    "A0221",
+    "A0226",
+    "A0230",
+    "A0232",
+    "A0233",
+    "A0242",
+    "A0245",
+    "A0258",
+    "A0272",
+    "A0284",
+    "A0286",
+    "A0290",
+    "A0291",
+    "A0292",
+    "A0294",
+    "A0295",
+    "A0298",
+    "A0300",
+    "A0301",
+    "A0302",
+    "A0306",
+    "A0310",
+    "A0312",
+    "A0332",
+    "A0336",
+    "A0339",
+    "A0342",
+    "A0354",
+    "A0356",
+    "A0361",
+    "A0362",
+    "A0366",
+    "A0376",
+    "A0380",
+    "A0403",
+    "A0406",
+    "A0422",
+    "A0423",
+    "A0429",
+    "A0444",
+    "A0446",
+    "A0453",
+    "A0463",
+    "A0464",
+    "A0465",
+    "A0466",
+    "A0467",
+    "A0468",
+    "A0473",
+    "A0485",
+    "A0488"
+   ],
+   "conflict_flag_address_ids": [],
+   "notes": "Massachusetts pending bills S.2983 and H.5222. Organiser rule ids mapped to team rules: MA-ALG-P1 -> MA-ALG-01; MA-ALG-P2 -> MA-ALG-02. As of 2026-10-01; these bills are pending, not in force. Affected = addresses they would reach if enacted."
+  },
+  "T5": {
+   "affected_address_ids": [],
+   "conflict_flag_address_ids": [],
+   "notes": "Massachusetts rent-control ballot question struck. Organiser rule ids mapped to team rules: MA-RENT-P1 -> MA-RENT-02. As of 2026-10-01; the measure is recorded as failed, so it reaches no address."
+  }
+ },
+ "changeDetail": {
+  "T1": {
+   "test_id": "T1",
+   "title": "California AB 325 / SB 763 takes effect",
+   "type": "as_of",
+   "rule_ids": [
+    "CA-ALG-01"
+   ],
+   "as_of_before": "2025-12-31",
+   "as_of_after": "2026-01-02",
+   "states": [
+    "CA"
+   ],
+   "expected_behavior": "not_yet_effective before, applies after, for every CA address.",
+   "mapped": {
+    "CA-ALG-01": [
+     "CA-ALG-01"
+    ]
+   },
+   "n_affected": 250,
+   "n_conflict": 0
+  },
+  "T2": {
+   "test_id": "T2",
+   "title": "Hoboken vs Jersey City local algorithmic bans",
+   "type": "boundary",
+   "rule_ids": [
+    "HOB-ALG-01",
+    "JC-ALG-01"
+   ],
+   "as_of": "2026-10-01",
+   "expected_behavior": "HOB-ALG-01 only for Hoboken addresses; JC-ALG-01 only for Jersey City addresses; neither for Newark.",
+   "mapped": {
+    "HOB-ALG-01": [
+     "HOB-ALG-01"
+    ],
+    "JC-ALG-01": [
+     "JC-ALG-01"
+    ]
+   },
+   "n_affected": 90,
+   "n_conflict": 0
+  },
+  "T3": {
+   "test_id": "T3",
+   "title": "NJ FAIR Act: enacted, not yet effective; possible preemption",
+   "type": "as_of",
+   "rule_ids": [
+    "NJ-ALG-01"
+   ],
+   "as_of_before": "2026-10-01",
+   "as_of_after": "2027-07-02",
+   "states": [
+    "NJ"
+   ],
+   "conflict_with": [
+    "JC-ALG-01",
+    "HOB-ALG-01"
+   ],
+   "expected_behavior": "not_yet_effective on 2026-10-01, applies on 2027-07-02 for every NJ address; Jersey City and Hoboken addresses carry a conflict flag for human review.",
+   "mapped": {
+    "NJ-ALG-01": [
+     "NJ-ALG-01"
+    ]
+   },
+   "n_affected": 140,
+   "n_conflict": 90
+  },
+  "T4": {
+   "test_id": "T4",
+   "title": "Massachusetts pending bills S.2983 and H.5222",
+   "type": "pending",
+   "rule_ids": [
+    "MA-ALG-P1",
+    "MA-ALG-P2"
+   ],
+   "as_of": "2026-10-01",
+   "states": [
+    "MA"
+   ],
+   "expected_behavior": "Reported as pending (not in force) for every Boston and Cambridge address; affected set = all MA addresses if enacted.",
+   "mapped": {
+    "MA-ALG-P1": [
+     "MA-ALG-01"
+    ],
+    "MA-ALG-P2": [
+     "MA-ALG-02"
+    ]
+   },
+   "n_affected": 110,
+   "n_conflict": 0
+  },
+  "T5": {
+   "test_id": "T5",
+   "title": "Massachusetts rent-control ballot question struck",
+   "type": "negative",
+   "rule_ids": [
+    "MA-RENT-P1"
+   ],
+   "as_of": "2026-10-01",
+   "states": [
+    "MA"
+   ],
+   "expected_behavior": "No rent cap reported for any Boston or Cambridge address; IP 25-21 recorded as failed. Affected set is empty.",
+   "mapped": {
+    "MA-RENT-P1": [
+     "MA-RENT-02"
+    ]
+   },
+   "n_affected": 0,
+   "n_conflict": 0
+  }
+ },
+ "docs": {
+  "D001": {
+   "jurisdiction": "Berkeley, CA",
+   "url": "https://berkeleyca.gov/sites/default/files/documents/2025-12-02%20Item%2001%20Ordinance%207992.pdf"
+  },
+  "D002": {
+   "jurisdiction": "Berkeley, CA",
+   "url": "https://morganlewis.com/pubs/2026/08/algorithmic-rent-pricing-litigation-expands-under-new-state-and-local-laws"
+  },
+  "D003": {
+   "jurisdiction": "Berkeley, CA",
+   "url": "https://rentboard.berkeleyca.gov/Fair_Chance"
+  },
+  "D004": {
+   "jurisdiction": "Berkeley, CA",
+   "url": "https://rentboard.berkeleyca.gov/elected-rent-board/news/2026-adjustments-relocation-assistance-payments"
+  },
+  "D005": {
+   "jurisdiction": "Berkeley, CA",
+   "url": "https://rentboard.berkeleyca.gov/laws-regulations/city-berkeley-ordinances-affecting-rental-properties/tenant-screening-and"
+  },
+  "D006": {
+   "jurisdiction": "Berkeley, CA",
+   "url": "https://rentboard.berkeleyca.gov/laws-regulations/measure-bb-changes-berkeleys-rent-ordinance"
+  },
+  "D007": {
+   "jurisdiction": "Berkeley, CA",
+   "url": "https://rentboard.berkeleyca.gov/rights-responsibilities/security-deposits"
+  },
+  "D008": {
+   "jurisdiction": "Berkeley, CA",
+   "url": "https://rentboard.berkeleyca.gov/sites/default/files/documents/AGA%20Public%20Notice.pdf"
+  },
+  "D009": {
+   "jurisdiction": "Berkeley, CA",
+   "url": "https://rentboard.berkeleyca.gov/sites/default/files/documents/Rent%20Ordinance%20Coverage%20by%20Unit%20Type.pdf"
+  },
+  "D010": {
+   "jurisdiction": "Boston, MA",
+   "url": "https://drive.google.com/file/d/1j4U3fDtmnYuwcUWhx5BMUcXc1bnKT8Ku/view?usp=sharing"
+  },
+  "D011": {
+   "jurisdiction": "Boston, MA",
+   "url": "https://malegislature.gov/Bills/193/H3744"
+  },
+  "D012": {
+   "jurisdiction": "Boston, MA",
+   "url": "https://www.boston.gov/departments/fair-housing-and-equity/boston-fair-housing-regulations"
+  },
+  "D013": {
+   "jurisdiction": "Boston, MA",
+   "url": "https://www.boston.gov/housing-stability-notification-act"
+  },
+  "D014": {
+   "jurisdiction": "Boston, MA",
+   "url": "https://www.boston.gov/sites/default/files/file/2020/11/Housing%20Stability%20Notification%20Act%20Tenant%20FAQs.pdf"
+  },
+  "D015": {
+   "jurisdiction": "CA",
+   "url": "https://caanet.org/compliance-reminder-section-8-acceptance-and-criminal-background-checks-are-fair-housing-issues/"
+  },
+  "D016": {
+   "jurisdiction": "CA",
+   "url": "https://calcivilrights.ca.gov/housing/"
+  },
+  "D017": {
+   "jurisdiction": "CA",
+   "url": "https://california.public.law/codes/civil_code_section_1950.6"
+  },
+  "D018": {
+   "jurisdiction": "CA",
+   "url": "https://law.justia.com/codes/california/code-civ/division-3/part-4/title-5/chapter-2/section-1946-2/"
+  },
+  "D019": {
+   "jurisdiction": "CA",
+   "url": "https://law.justia.com/codes/california/code-civ/division-3/part-4/title-5/chapter-2/section-1947-12/"
+  },
+  "D020": {
+   "jurisdiction": "CA",
+   "url": "https://law.justia.com/codes/california/code-civ/division-3/part-4/title-5/chapter-2/section-1950-5/"
+  },
+  "D021": {
+   "jurisdiction": "CA",
+   "url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-2-8/chapter-6/article-2/section-12955/"
+  },
+  "D022": {
+   "jurisdiction": "CA",
+   "url": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260AB325"
+  },
+  "D023": {
+   "jurisdiction": "CA",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1946.2"
+  },
+  "D024": {
+   "jurisdiction": "CA",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1947.12"
+  },
+  "D025": {
+   "jurisdiction": "CA",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1950.5"
+  },
+  "D026": {
+   "jurisdiction": "CA",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1950.6"
+  },
+  "D027": {
+   "jurisdiction": "CA",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=12955"
+  },
+  "D028": {
+   "jurisdiction": "CA",
+   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing/californias-antitrust-law-amendments-kick-in-targeting-algorithmic-pricing"
+  },
+  "D029": {
+   "jurisdiction": "Cambridge, MA",
+   "url": "https://www.cambridgema.gov/departments/humanrightscommission"
+  },
+  "D030": {
+   "jurisdiction": "Cambridge, MA",
+   "url": "https://www.cambridgeday.com/?p=158097"
+  },
+  "D031": {
+   "jurisdiction": "Cambridge, MA",
+   "url": "https://www.cambridgema.gov/tenantrights"
+  },
+  "D032": {
+   "jurisdiction": "Hoboken, NJ",
+   "url": "https://ecode360.com/15252438"
+  },
+  "D033": {
+   "jurisdiction": "Hoboken, NJ",
+   "url": "https://ecode360.com/15252470"
+  },
+  "D034": {
+   "jurisdiction": "Hoboken, NJ",
+   "url": "https://ecode360.com/46833413"
+  },
+  "D035": {
+   "jurisdiction": "Jersey City, NJ",
+   "url": "https://hudsoncountyview.com/jersey-city-council-approves-realpage-ban-and-increasing-benefits-for-laborers/"
+  },
+  "D036": {
+   "jurisdiction": "Jersey City, NJ",
+   "url": "https://www.jerseycitynj.gov/landlordtenant"
+  },
+  "D037": {
+   "jurisdiction": "Jersey City, NJ",
+   "url": "https://www.morganlewis.com/pubs/2026/08/algorithmic-rent-pricing-litigation-expands-under-new-state-and-local-laws"
+  },
+  "D038": {
+   "jurisdiction": "Los Angeles, CA",
+   "url": "https://codelibrary.amlegal.com/codes/los_angeles/latest/lamc/0-0-0-322208"
+  },
+  "D039": {
+   "jurisdiction": "Los Angeles, CA",
+   "url": "https://cityclerk.lacity.org/onlinedocs/2024/24-1031_misc_9-03-24.pdf"
+  },
+  "D040": {
+   "jurisdiction": "Los Angeles, CA",
+   "url": "https://housing.lacity.gov/residents/just-cause-for-eviction-ordinance-jco"
+  },
+  "D041": {
+   "jurisdiction": "Los Angeles, CA",
+   "url": "https://housing.lacity.gov/residents/rso-overview"
+  },
+  "D042": {
+   "jurisdiction": "Los Angeles, CA",
+   "url": "https://housing.lacity.gov/rso-rent-increase-calculator"
+  },
+  "D043": {
+   "jurisdiction": "Los Angeles, CA",
+   "url": "https://housing.lacity.gov/wp-content/uploads/2026/08/Relocation-Assistance-Bulletins-A-and-B-Combined.pdf"
+  },
+  "D044": {
+   "jurisdiction": "Los Angeles, CA",
+   "url": "https://members.aagla.org/news/city-of-la-security-deposit-interest-requirement"
+  },
+  "D045": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Bills/194/H5222"
+  },
+  "D046": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Bills/194/S2983"
+  },
+  "D047": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Bills/194/S2983/BillHistory"
+  },
+  "D048": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40P/Section4"
+  },
+  "D049": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXXI/Chapter151B/Section4"
+  },
+  "D050": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186/Section11"
+  },
+  "D051": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186/Section12"
+  },
+  "D052": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186/Section15B"
+  },
+  "D053": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186/Section18"
+  },
+  "D054": {
+   "jurisdiction": "MA",
+   "url": "https://masslandlords.net/can-massachusetts-landlords-charge-an-application-fee/"
+  },
+  "D055": {
+   "jurisdiction": "MA",
+   "url": "https://massrealestatelawblog.com/tag/cella-v-attorney-general/"
+  },
+  "D056": {
+   "jurisdiction": "MA",
+   "url": "https://www.mass.gov/doc/803-cmr-5-criminal-offender-record-information-cori-housing/download"
+  },
+  "D057": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXVI/Chapter112/Section87DDD%201~2"
+  },
+  "D058": {
+   "jurisdiction": "MA",
+   "url": "https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186/Section31"
+  },
+  "D059": {
+   "jurisdiction": "MA",
+   "url": "https://www.wbur.org/news/2026/06/23/massachusetts-high-court-rent-control-ballot-question-struck"
+  },
+  "D060": {
+   "jurisdiction": "NJ",
+   "url": "https://daypitney.com/new-jersey-enacts-fair-act-to-prohibit-algorithmic-rent-setting-practices"
+  },
+  "D061": {
+   "jurisdiction": "NJ",
+   "url": "https://law.justia.com/codes/new-jersey/title-10/section-10-5-12/"
+  },
+  "D062": {
+   "jurisdiction": "NJ",
+   "url": "https://law.justia.com/codes/new-jersey/title-2a/section-2a-18-61-1/"
+  },
+  "D063": {
+   "jurisdiction": "NJ",
+   "url": "https://law.justia.com/codes/new-jersey/title-46/section-46-8-21-2/"
+  },
+  "D064": {
+   "jurisdiction": "NJ",
+   "url": "https://law.justia.com/codes/new-jersey/title-46/section-46-8-26/"
+  },
+  "D065": {
+   "jurisdiction": "NJ",
+   "url": "https://pub.njleg.gov/bills/2020/PL21/110_.HTM"
+  },
+  "D066": {
+   "jurisdiction": "NJ",
+   "url": "https://pub.njleg.gov/bills/2024/PL25/405_.HTM"
+  },
+  "D067": {
+   "jurisdiction": "NJ",
+   "url": "https://www.nj.gov/dca/codes/publications/pdf_lti/t_i_r.pdf"
+  },
+  "D068": {
+   "jurisdiction": "NJ",
+   "url": "https://www.nj.gov/oag/dcr/downloads/kyrhousing02.pdf"
+  },
+  "D069": {
+   "jurisdiction": "NJ",
+   "url": "https://pub.njleg.state.nj.us/Bills/2026/AL26/43_.HTM"
+  },
+  "D070": {
+   "jurisdiction": "Newark, NJ",
+   "url": "https://ecode360.com/36623772"
+  },
+  "D071": {
+   "jurisdiction": "Newark, NJ",
+   "url": "https://ecode360.com/36637822"
+  },
+  "D072": {
+   "jurisdiction": "Newark, NJ",
+   "url": "https://ecode360.com/36642000"
+  },
+  "D073": {
+   "jurisdiction": "San Diego, CA",
+   "url": "https://docs.sandiego.gov/municode/municodechapter09/ch09art08division07.pdf"
+  },
+  "D074": {
+   "jurisdiction": "San Diego, CA",
+   "url": "https://gocodebook.com/library/us/ca/san-diego-zoning/division-11-prohibition-of-anti-competitive-automated-rent-price-fixing/98.1103-use-and-sale-of-algorithmic-devices-prohibited"
+  },
+  "D075": {
+   "jurisdiction": "San Diego, CA",
+   "url": "https://gocodebook.com/library/us/ca/san-diego-zoning/division-8-prohibition-of-discrimination-based-on-a-tenant-s-source-of-income"
+  },
+  "D076": {
+   "jurisdiction": "San Diego, CA",
+   "url": "https://sandiego.gov/sites/default/files/2025-04/automated-rent-price-fixing-prohibition-ordinance-materials.pdf"
+  },
+  "D077": {
+   "jurisdiction": "San Diego, CA",
+   "url": "https://www.lassd.org/resource/city-of-san-diego-tenant-protection-ordinance/"
+  },
+  "D078": {
+   "jurisdiction": "San Francisco, CA",
+   "url": "https://sf-hrc.org/fair-chance-ordinance"
+  },
+  "D079": {
+   "jurisdiction": "San Francisco, CA",
+   "url": "https://sf.gov/information/overview-just-cause-evictions"
+  },
+  "D080": {
+   "jurisdiction": "San Francisco, CA",
+   "url": "https://www.sf.gov/news--annual-rent-increase-3126-22827-announced"
+  },
+  "D081": {
+   "jurisdiction": "San Francisco, CA",
+   "url": "https://www.sf.gov/news/new-law-prohibits-algorithmic-devices-used-set-rents-san-francisco"
+  },
+  "D082": {
+   "jurisdiction": "San Francisco, CA",
+   "url": "https://www.sf.gov/reports--archive-relocation-rates"
+  },
+  "D083": {
+   "jurisdiction": "San Francisco, CA",
+   "url": "https://www.sf.gov/reports--current-rates-including-rent-increase-relocation-sec-deposit"
+  },
+  "D084": {
+   "jurisdiction": "Santa Ana, CA",
+   "url": "https://santa-ana.gov/departments/rent-stabilization"
+  },
+  "D085": {
+   "jurisdiction": "Santa Ana, CA",
+   "url": "https://santa-ana.gov/santa-ana-city-council-adopts-rent-stabilization-and-just-cause-eviction-ordinances-effective-nov-19"
+  },
+  "D086": {
+   "jurisdiction": "Santa Ana, CA",
+   "url": "https://www.ocbj.com/real-estate/santa-ana-bans-landlords-from-using-ai-apartment-rent-pricing-software/"
+  },
+  "D087": {
+   "jurisdiction": "Santa Ana, CA",
+   "url": "https://www.publicceo.com/2026/02/santa-ana-city-council-continues-to-strengthen-tenant-protections-by-banning-anticompetitive-rent-setting-software/"
+  }
+ },
+ "findings": [
+  {
+   "jurisdiction": "MA",
+   "category": "rent_increase_limits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": "MA-RENT-01",
+   "pending": [],
+   "failed": [
+    "MA-RENT-02"
+   ],
+   "note": "State law (M.G.L. c. 40P, \u00a7 4) bars local rules of this kind."
+  },
+  {
+   "jurisdiction": "MA",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "MA",
+   "category": "algorithmic_rent_setting",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [
+    "MA-ALG-01",
+    "MA-ALG-02"
+   ],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "algorithmic_rent_setting",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Francisco, CA",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Francisco, CA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Francisco, CA",
+   "category": "screening_restrictions",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "rent_increase_limits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "screening_restrictions",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "screening_restrictions",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Jersey City, NJ",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Jersey City, NJ",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Jersey City, NJ",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Jersey City, NJ",
+   "category": "screening_restrictions",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Hoboken, NJ",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Hoboken, NJ",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Hoboken, NJ",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Hoboken, NJ",
+   "category": "screening_restrictions",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Newark, NJ",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Newark, NJ",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Newark, NJ",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Newark, NJ",
+   "category": "algorithmic_rent_setting",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "rent_increase_limits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": "MA-RENT-01",
+   "pending": [],
+   "failed": [
+    "BOS-RENT-01"
+   ],
+   "note": "State law (M.G.L. c. 40P, \u00a7 4) bars local rules of this kind."
+  },
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [
+    "BOS-EVICT-02"
+   ],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "algorithmic_rent_setting",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "rent_increase_limits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": "MA-RENT-01",
+   "pending": [],
+   "failed": [],
+   "note": "State law (M.G.L. c. 40P, \u00a7 4) bars local rules of this kind."
+  },
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "algorithmic_rent_setting",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  }
+ ],
+ "model": "gpt-5.5",
+ "validation": {
+  "as_of": "2026-10-01",
+  "rules": 56,
+  "rules_by_status": {
+   "in_force": 50,
+   "not_yet_effective": 1,
+   "failed": 3,
+   "pending": 2
+  },
+  "lookup_results": {
+   "superseded": 257,
+   "applies": 3789,
+   "not_yet_effective": 140,
+   "unknown": 1130,
+   "pending": 220
+  },
+  "checks": [
+   {
+    "name": "rules.json matches the organiser schema",
+    "pass": true,
+    "detail": "56 rules; no violations"
+   },
+   {
+    "name": "every quoted_span is found verbatim in its source document",
+    "pass": true,
+    "detail": "56/56 verified"
+   },
+   {
+    "name": "every supporting-source quote is verbatim too",
+    "pass": true,
+    "detail": "105/105 verified; 0 from link-only text not present here"
+   },
+   {
+    "name": "\"applies\" answers backed by a quote in the distributed corpus",
+    "pass": true,
+    "detail": "3399/3789 = 89.7% (the rest rest on link-only sources we saved ourselves, which the organisers said do not count)"
+   },
+   {
+    "name": "lookups.json covers all 500 addresses with valid results",
+    "pass": true,
+    "detail": "500 addresses, 5536 results, 0 invalid"
+   },
+   {
+    "name": "legal-city counts match the participant guide",
+    "pass": true,
+    "detail": "Berkeley 40, Boston 60, Cambridge 50, Hoboken 40, Jersey City 50, Los Angeles 80, Newark 50, San Diego 50, San Francisco 80"
+   },
+   {
+    "name": "T1 CA AB 325 / SB 763: every CA address changes between 2025-12-31 and 2026-01-02",
+    "pass": true,
+    "detail": "250 affected vs 250 CA addresses"
+   },
+   {
+    "name": "T2 local bans stay inside their own city limits",
+    "pass": true,
+    "detail": "90 affected = Hoboken 40 + Jersey City 50; Newark 0"
+   },
+   {
+    "name": "T3 NJ FAIR Act: not yet effective now, applies 2027-07-02, conflict flags in Jersey City and Hoboken",
+    "pass": true,
+    "detail": "140 affected vs 140 NJ addresses; 90 conflict flags"
+   },
+   {
+    "name": "T4 MA S.2983 / H.5222 pending for every MA address",
+    "pass": true,
+    "detail": "110 affected vs 110 MA addresses"
+   },
+   {
+    "name": "T5 no rent cap reported in Boston or Cambridge; ballot question recorded as failed",
+    "pass": true,
+    "detail": "affected 0; rent-cap results at MA addresses 0; recorded as failed: MA-RENT-02, BOS-RENT-01"
+   },
+   {
+    "name": "every organiser test rule id maps to an extracted rule",
+    "pass": true,
+    "detail": "CA-ALG-01->CA-ALG-01; HOB-ALG-01->HOB-ALG-01; JC-ALG-01->JC-ALG-01; NJ-ALG-01->NJ-ALG-01; MA-ALG-P1->MA-ALG-01; MA-ALG-P2->MA-ALG-02; MA-RENT-P1->MA-RENT-02"
+   },
+   {
+    "name": "as-of 2025-12-31 vs 2026-10-01: only laws that started in that window change status",
+    "pass": true,
+    "detail": "CA-FEE-01 not_yet_effective->in_force (eff 2026-01-01); CA-ALG-01 not_yet_effective->in_force (eff 2026-01-01); NJ-FEE-01 not_yet_effective->in_force (eff 2026-05-01); BER-ALG-01 not_yet_effective->in_force (eff 2026-01); SA-ALG-01 not_yet_effective->in_force (eff 2026-04-02)"
+   }
+  ],
+  "passed": 13,
+  "total": 13
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "as_of": "2026-10-01",
+ "rules": 56,
+ "rules_by_status": {
+  "in_force": 50,
+  "not_yet_effective": 1,
+  "failed": 3,
+  "pending": 2
+ },
+ "lookup_results": {
+  "superseded": 257,
+  "applies": 3789,
+  "not_yet_effective": 140,
+  "unknown": 1130,
+  "pending": 220
+ },
+ "checks": [
+  {
+   "name": "rules.json matches the organiser schema",
+   "pass": true,
+   "detail": "56 rules; no violations"
+  },
+  {
+   "name": "every quoted_span is found verbatim in its source document",
+   "pass": true,
+   "detail": "56/56 verified"
+  },
+  {
+   "name": "every supporting-source quote is verbatim too",
+   "pass": true,
+   "detail": "105/105 verified; 0 from link-only text not present here"
+  },
+  {
+   "name": "\"applies\" answers backed by a quote in the distributed corpus",
+   "pass": true,
+   "detail": "3399/3789 = 89.7% (the rest rest on link-only sources we saved ourselves, which the organisers said do not count)"
+  },
+  {
+   "name": "lookups.json covers all 500 addresses with valid results",
+   "pass": true,
+   "detail": "500 addresses, 5536 results, 0 invalid"
+  },
+  {
+   "name": "legal-city counts match the participant guide",
+   "pass": true,
+   "detail": "Berkeley 40, Boston 60, Cambridge 50, Hoboken 40, Jersey City 50, Los Angeles 80, Newark 50, San Diego 50, San Francisco 80"
+  },
+  {
+   "name": "T1 CA AB 325 / SB 763: every CA address changes between 2025-12-31 and 2026-01-02",
+   "pass": true,
+   "detail": "250 affected vs 250 CA addresses"
+  },
+  {
+   "name": "T2 local bans stay inside their own city limits",
+   "pass": true,
+   "detail": "90 affected = Hoboken 40 + Jersey City 50; Newark 0"
+  },
+  {
+   "name": "T3 NJ FAIR Act: not yet effective now, applies 2027-07-02, conflict flags in Jersey City and Hoboken",
+   "pass": true,
+   "detail": "140 affected vs 140 NJ addresses; 90 conflict flags"
+  },
+  {
+   "name": "T4 MA S.2983 / H.5222 pending for every MA address",
+   "pass": true,
+   "detail": "110 affected vs 110 MA addresses"
+  },
+  {
+   "name": "T5 no rent cap reported in Boston or Cambridge; ballot question recorded as failed",
+   "pass": true,
+   "detail": "affected 0; rent-cap results at MA addresses 0; recorded as failed: MA-RENT-02, BOS-RENT-01"
+  },
+  {
+   "name": "every organiser test rule id maps to an extracted rule",
+   "pass": true,
+   "detail": "CA-ALG-01->CA-ALG-01; HOB-ALG-01->HOB-ALG-01; JC-ALG-01->JC-ALG-01; NJ-ALG-01->NJ-ALG-01; MA-ALG-P1->MA-ALG-01; MA-ALG-P2->MA-ALG-02; MA-RENT-P1->MA-RENT-02"
+  },
+  {
+   "name": "as-of 2025-12-31 vs 2026-10-01: only laws that started in that window change status",
+   "pass": true,
+   "detail": "CA-FEE-01 not_yet_effective->in_force (eff 2026-01-01); CA-ALG-01 not_yet_effective->in_force (eff 2026-01-01); NJ-FEE-01 not_yet_effective->in_force (eff 2026-05-01); BER-ALG-01 not_yet_effective->in_force (eff 2026-01); SA-ALG-01 not_yet_effective->in_force (eff 2026-04-02)"
+  }
+ ],
+ "passed": 13,
+ "total": 13
+}

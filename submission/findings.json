@@ -1,0 +1,384 @@
+{
+ "as_of": "2026-10-01",
+ "findings": [
+  {
+   "jurisdiction": "MA",
+   "category": "rent_increase_limits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": "MA-RENT-01",
+   "pending": [],
+   "failed": [
+    "MA-RENT-02"
+   ],
+   "note": "State law (M.G.L. c. 40P, § 4) bars local rules of this kind."
+  },
+  {
+   "jurisdiction": "MA",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "MA",
+   "category": "algorithmic_rent_setting",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [
+    "MA-ALG-01",
+    "MA-ALG-02"
+   ],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "algorithmic_rent_setting",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Francisco, CA",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Francisco, CA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Francisco, CA",
+   "category": "screening_restrictions",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "rent_increase_limits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "San Diego, CA",
+   "category": "screening_restrictions",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Santa Ana, CA",
+   "category": "screening_restrictions",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Jersey City, NJ",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Jersey City, NJ",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Jersey City, NJ",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Jersey City, NJ",
+   "category": "screening_restrictions",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Hoboken, NJ",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Hoboken, NJ",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Hoboken, NJ",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Hoboken, NJ",
+   "category": "screening_restrictions",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Newark, NJ",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Newark, NJ",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Newark, NJ",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Newark, NJ",
+   "category": "algorithmic_rent_setting",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "rent_increase_limits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": "MA-RENT-01",
+   "pending": [],
+   "failed": [
+    "BOS-RENT-01"
+   ],
+   "note": "State law (M.G.L. c. 40P, § 4) bars local rules of this kind."
+  },
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [
+    "BOS-EVICT-02"
+   ],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Boston, MA",
+   "category": "algorithmic_rent_setting",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "rent_increase_limits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": "MA-RENT-01",
+   "pending": [],
+   "failed": [],
+   "note": "State law (M.G.L. c. 40P, § 4) bars local rules of this kind."
+  },
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "just_cause_eviction",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "security_deposits",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "application_screening_fees",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  },
+  {
+   "jurisdiction": "Cambridge, MA",
+   "category": "algorithmic_rent_setting",
+   "finding": "no_rule_at_this_level",
+   "as_of": "2026-10-01",
+   "barred_by": null,
+   "pending": [],
+   "failed": [],
+   "note": "No enacted rule of this category was found for this jurisdiction in the corpus."
+  }
+ ]
+}

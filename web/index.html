@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rental Housing Law Navigator</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16202c;--mute:#5d6b7c;--line:#dfe4ea;--accent:#0f6e6a;--accent-ink:#fff;
+--ok:#16794a;--ok-bg:#e3f4ea;--unk:#8a5a00;--unk-bg:#fdf1d4;--sup:#4b5563;--sup-bg:#e8ebef;--nye:#2456a6;--nye-bg:#e2ecfb;--pen:#6d3fa8;--pen-bg:#efe6fa;--bad:#a12626;--bad-bg:#fbe5e5}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#11161c;--card:#1a212a;--ink:#e8edf2;--mute:#9aa7b5;--line:#2c3743;--accent:#3fb8b0;--accent-ink:#06211f;
+--ok:#6fd6a0;--ok-bg:#153324;--unk:#f0c060;--unk-bg:#3a2d0c;--sup:#b4bcc6;--sup-bg:#2a323c;--nye:#8db4f5;--nye-bg:#182b4a;--pen:#c5a3f0;--pen-bg:#2c1f45;--bad:#f29a9a;--bad-bg:#431b1b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+h1{font-size:20px;margin:0}
+.sub{color:var(--mute);font-size:13px}
+.legal{background:var(--unk-bg);color:var(--unk);font-size:13px;padding:7px 16px;text-align:center;font-weight:600}
+.bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.asof{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:13px}
+.asof input{font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;padding:5px 10px}
+button.on,button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+nav{display:flex;gap:4px;margin-top:12px;flex-wrap:wrap}
+nav button{border:none;border-bottom:3px solid transparent;border-radius:0;background:none;padding:8px 12px;font-weight:600;color:var(--mute)}
+nav button.on{color:var(--ink);border-bottom-color:var(--accent);background:none}
+main{padding:16px 0 60px}
+.grid{display:grid;grid-template-columns:330px 1fr;gap:16px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.list{max-height:30vh}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+input[type=search],select{font:inherit;width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.list{max-height:62vh;overflow:auto;margin-top:10px;border-top:1px solid var(--line)}
+.row{padding:8px 4px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px}
+.row:hover,.row.on{background:var(--bg)}
+.row small{color:var(--mute);display:block}
+h2{font-size:18px;margin:0 0 4px}
+h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:20px 0 8px}
+.stack{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0;font-weight:600}
+.stack span.j{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.facts{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--mute)}
+.facts b{color:var(--ink)}
+.note{font-size:13px;background:var(--unk-bg);color:var(--unk);border-radius:6px;padding:6px 10px;margin-top:8px}
+.rule{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.rule .top{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.rule .t{font-weight:600}
+.badge{font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.b-applies{background:var(--ok-bg);color:var(--ok)}.b-unknown{background:var(--unk-bg);color:var(--unk)}.b-superseded{background:var(--sup-bg);color:var(--sup)}
+.b-not_yet_effective{background:var(--nye-bg);color:var(--nye)}.b-pending{background:var(--pen-bg);color:var(--pen)}.b-failed,.b-conflict{background:var(--bad-bg);color:var(--bad)}.b-in_force{background:var(--ok-bg);color:var(--ok)}
+.req{margin:6px 0 2px}
+.kv{font-size:13px;color:var(--mute)}
+.why{font-size:13px;margin-top:6px}
+.cite{font-size:13px;color:var(--mute);margin-top:4px}
+details{margin-top:6px;font-size:13px}
+summary{cursor:pointer;color:var(--accent);font-weight:600}
+blockquote{margin:8px 0;padding:8px 12px;border-left:3px solid var(--accent);background:var(--bg);font-size:13px;overflow-wrap:anywhere}
+a{color:var(--accent)}
+.none{font-size:13px;color:var(--mute);border:1px dashed var(--line);border-radius:8px;padding:8px 12px;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mute);font-weight:600}
+.tw{overflow-x:auto}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin:1px;cursor:pointer}
+.kpis{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.kpi{background:var(--bg);border-radius:8px;padding:8px 12px;min-width:110px}
+.kpi b{display:block;font-size:20px}
+.kpi span{font-size:12px;color:var(--mute)}
+.pass{color:var(--ok);font-weight:700}.fail{color:var(--bad);font-weight:700}
+ol.pipe{padding-left:20px}ol.pipe li{margin-bottom:6px}
+.lang{margin-left:auto}
+</style>
+</head>
+<body>
+<div class="legal" data-i="legal">Not legal advice. This prototype shows what public law text says for an address; it is not a compliance certification.</div>
+<header><div class="wrap">
+  <div class="bar">
+    <div><h1>Rental Housing Law Navigator</h1><div class="sub" data-i="tagline">Which rules apply at this address on this date — every answer cited to its source.</div></div>
+    <div class="asof"><span data-i="asof">As of</span> <input type="date" id="asof">
+      <button data-d="2025-12-31">2025-12-31</button><button data-d="2026-01-02">2026-01-02</button><button data-d="2026-10-01">2026-10-01</button><button data-d="2027-07-02">2027-07-02</button>
+      <button id="lang" class="lang">Español</button></div>
+  </div>
+  <nav id="nav"><button data-v="lookup" class="on" data-i="tab_lookup">Address lookup</button><button data-v="changes" data-i="tab_changes">Change tracking</button><button data-v="rules" data-i="tab_rules">Rules</button><button data-v="method" data-i="tab_method">Method &amp; audit</button></nav>
+</div></header>
+<main><div class="wrap" id="view">Loading…</div></main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
