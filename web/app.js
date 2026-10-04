@@ -62,12 +62,19 @@ function renderAddress() {
   if (!a) return `<div class="card">${t('pick')}</div>`;
   const res = lookup(a, rules, S.asOf);
   const fnd = findings(rules, [a.state, a.city], meta.categories, S.asOf);
-  let h = `<div class="card"><h2>${esc(a.street_address)}</h2><div class="sub">${esc(a.postal_city)}, ${a.state} ${esc(a.zip)} · ${a.address_id}</div>
+  const how = { census_batch: 'U.S. Census Geocoder', census_retry_normalised: 'U.S. Census Geocoder, after tidying the street format', inferred_from_postal_peers: 'not matched by the Census Geocoder; city inferred from nearby sample addresses' }[a.geocode_method] || 'unresolved';
+  const conf = a.jurisdiction_confidence >= 1 ? 'high (exact match)' : a.jurisdiction_confidence >= 0.9 ? 'high (close match: the geocoder matched a nearby house number or spelling)' : a.jurisdiction_confidence > 0 ? 'medium (inferred, not matched)' : 'none';
+  let h = `<div class="card"><h2>${esc(a.street_address)}</h2><div class="sub">${esc(a.postal_city)}, ${a.state} ${esc(a.zip)}</div>
     <div class="stack"><span class="kv">${t('juris')}:</span><span class="j">${a.state}</span>›<span class="j">${esc(a.county || 'county n/a')}</span>›<span class="j">${esc(a.city || 'unresolved')}</span></div>
-    <div class="facts"><span>${t('built')}: <b>${a.year_built ?? '—'}</b></span><span>${t('units')}: <b>${unitsTxt(a)}</b>${a.units_source && a.units_source !== 'assessor units field' ? ' (from use description)' : ''}</span><span>${t('use')}: <b>${esc(a.use_description)}</b></span><span>${esc(a.source_dataset)}</span></div>
+    <div class="facts"><span>${t('built')}: <b>${a.year_built ?? 'not in public record'}</b></span><span>${t('units')}: <b>${a.units_min == null && a.units_max == null ? 'not in public record' : unitsTxt(a)}</b></span></div>
     ${a.postal_city_differs ? `<div class="note">Mailing city “${esc(a.postal_city)}” is not the legal city. The Census Geocoder places this address in ${esc(a.city)}.</div>` : ''}
     ${a.jurisdiction_note ? `<div class="note">${esc(a.jurisdiction_note)}</div>` : ''}
-    <div class="kv" style="margin-top:6px">Geocoding: ${esc(a.geocode_method)}${a.matched_address ? ` → ${esc(a.matched_address)}` : ''} · jurisdiction confidence ${a.jurisdiction_confidence}</div>`;
+    <details><summary>Where this address information comes from</summary>
+      <div class="kv">Building facts: ${esc(a.source_dataset)} (public assessor data, retrieved ${esc(a.facts_retrieved_at || 'n/a')}).</div>
+      <div class="kv">Assessor's property-use entry, as recorded: “${esc(a.use_description)}” (use code ${esc(a.use_code)}).</div>
+      <div class="kv">Unit count: ${a.units_source === 'assessor units field' ? 'from the assessor\'s unit field.' : a.units_source ? 'the assessor\'s unit field is empty; the count is read from the property-use entry above.' : 'not available.'}</div>
+      <div class="kv">Legal city: ${how}${a.matched_address ? `; matched to “${esc(a.matched_address)}”` : ''}. Confidence: ${conf}.</div>
+      <div class="kv">Sample address id in the organisers' dataset: ${a.address_id}.</div></details>`;
   for (const c of meta.categories) {
     const here = res.filter(x => x.category === c);
     h += `<h3>${T[S.lang].cats[c]}</h3>` + here.map(ruleCard).join('');
