@@ -91,14 +91,14 @@ function renderLookup() {
   const q = S.q.trim().toLowerCase();
   const active = q || S.city;
   const list = active ? addresses.filter(a => (!S.city || a.city === S.city) && (!q || `${a.street_address} ${a.postal_city} ${a.zip} ${a.address_id} ${a.city}`.toLowerCase().includes(q))) : [];
-  const examples = [['A0001', 'Los Angeles, built 1927'], ['A0002', 'Hoboken'], ['A0065', 'Dorchester → Boston'], ['A0107', 'Los Angeles, built 1978']];
-  view.innerHTML = `<div class="grid"><div class="card"><input type="search" id="q" placeholder="${t('search')}" value="${esc(S.q)}" autocomplete="off">
+  view.innerHTML = `<div class="grid"><div class="card"><div class="qwrap"><input type="search" id="q" placeholder="${t('search')}" value="${esc(S.q)}" autocomplete="off">${active ? '' : '<div class="eg" id="eg">e.g. 6238 De Longpre Ave</div>'}</div>
     <select id="city" style="margin-top:8px"><option value="">${t('allcities')}</option>${cities.map(c => `<option ${c === S.city ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select>
     <div class="count">${active ? `${list.length} of ${addresses.length} addresses match` : `${addresses.length} sample addresses in ${cities.length} cities. Type a street, ZIP or city to search.`}</div>
     ${active ? `<div class="list">${list.map(a => `<div class="row ${S.addr && a.address_id === S.addr.address_id ? 'on' : ''}" data-a="${a.address_id}">${esc(a.street_address)}<small>${esc(a.city)}${a.postal_city_differs ? ` (mail: ${esc(a.postal_city)})` : ''} · ${a.address_id}</small></div>`).join('') || '<div class="none">No sample address matches. Try fewer letters.</div>'}</div>`
-      : `<div class="count">Examples:</div>${examples.map(([id, lab]) => `<div class="row" data-a="${id}">${esc(addresses.find(a => a.address_id === id).street_address)}<small>${esc(lab)}</small></div>`).join('')}`}</div>
+      : ''}</div>
     <div id="detail">${renderAddress()}</div></div>`;
   $('#q').oninput = e => { S.q = e.target.value; const p = e.target.selectionStart; renderLookup(); const n = $('#q'); n.focus(); n.setSelectionRange(p, p); };
+  if ($('#eg')) $('#eg').onmousedown = e => { e.preventDefault(); S.q = '6238 De Longpre'; renderLookup(); $('#q').focus(); };
   $('#city').onchange = e => { S.city = e.target.value; renderLookup(); };
   view.querySelectorAll('.row').forEach(el => el.onclick = () => { S.addr = addresses.find(a => a.address_id === el.dataset.a); renderLookup(); window.scrollTo({ top: 0 }); });
 }

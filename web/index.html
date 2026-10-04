@@ -99,6 +99,10 @@ header{position:relative}
 .tlt td.d{font:600 11px var(--mono);white-space:nowrap}
 .tlt td{font-size:12.5px}
 .count{font:11px var(--mono);color:var(--text3);margin-top:12px}
+.qwrap{position:relative}
+.eg{display:none;font-size:13px;color:var(--text3);padding:9px 11px;border:1px solid var(--border);border-top:0;background:var(--surface);cursor:pointer}
+.qwrap:focus-within .eg{display:block}
+.eg:hover{background:var(--surface2)}
 </style>
 </head>
 <body>
@@ -115,6 +119,6 @@ header{position:relative}
   <nav id="nav"><button data-v="lookup" class="on" data-i="tab_lookup">Address lookup</button><button data-v="changes" data-i="tab_changes">Change tracking</button><button data-v="rules" data-i="tab_rules">Rules</button><button data-v="method" data-i="tab_method">Method &amp; audit</button></nav>
 </header>
 <main id="view">Loading…</main></div>
-<script type="module" src="app.js?v=13"></script>
+<script type="module" src="app.js?v=14"></script>
 </body>
 </html>
